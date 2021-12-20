@@ -1,6 +1,6 @@
 package be.technifutur.comparator;
 
-import be.technifutur.activity.ActivityType;
+import be.technifutur.DataType.ActivityType;
 
 import java.util.Comparator;
 

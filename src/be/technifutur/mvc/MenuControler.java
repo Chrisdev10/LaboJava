@@ -1,6 +1,6 @@
 package be.technifutur.mvc;
 
-import be.technifutur.activity.NodeMenu;
+import be.technifutur.DataType.NodeMenu;
 
 import java.util.concurrent.Callable;
 
@@ -27,7 +27,7 @@ public class MenuControler implements NodeMenu {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
     public void setName(String name) {
         this.name = name;
@@ -44,6 +44,9 @@ public class MenuControler implements NodeMenu {
                 choix = vue.saisirMenu(model);
                 choice = Integer.parseInt(choix);
                 action = model.getItem(choice).getCall();
+                if (action != null) {
+                    action.call();
+                }
                 if (choice >= 0 && choice < model.getSize()) {
                     exitProg = true;
                 }else{
@@ -51,6 +54,8 @@ public class MenuControler implements NodeMenu {
                 }
             } catch (NumberFormatException e) {
                 vue.setErrorMsg("non numérique : "+choix);
+            } catch (Exception e) {
+                System.out.println("hors champ");
             }
         } while (!exitProg);
         if (choice == 0 && action == null) {

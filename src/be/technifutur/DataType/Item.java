@@ -1,4 +1,4 @@
-package be.technifutur.activity;
+package be.technifutur.DataType;
 
 import java.util.concurrent.Callable;
 

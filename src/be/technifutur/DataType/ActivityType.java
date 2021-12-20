@@ -1,7 +1,9 @@
-package be.technifutur.activity;
+package be.technifutur.DataType;
 
 
-public class ActivityType {
+import java.io.Serializable;
+
+public class ActivityType implements Serializable {
     private String name;
     private boolean registration;
 
@@ -41,4 +43,11 @@ public class ActivityType {
         return name != null ? name.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "ActivityType{" +
+                "name='" + name + '\'' +
+                ", registration=" + registration +
+                '}';
+    }
 }

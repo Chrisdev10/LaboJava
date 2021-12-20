@@ -1,5 +1,5 @@
 package be.technifutur.mvc;
-import be.technifutur.activity.NodeMenu;
+import be.technifutur.DataType.NodeMenu;
 import java.util.*;
 
 public class MenuModel {

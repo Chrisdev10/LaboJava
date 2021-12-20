@@ -9,11 +9,37 @@ public class MenuVue {
          * Will iterated through the entire tab and print name of item
          */
         for (int i = 0; i < model.getSize(); i++) {
-            System.out.println("( "+i+") "+model.getItem(i).getName());
+            System.out.println("( "+i+" ) "+model.getItem(i).getName());
         }
         System.out.print("choix : ");
         return scan.nextLine();
     }
+    public String confirm(String str) {
+        /*
+         * Will iterated through the entire tab and print name of item
+         */
+        System.out.println("êtes vous sur de "+str+" ? o/n");
+        System.out.print("choix : ");
+        return scan.nextLine();
+    }
+    public String saisirActivity() {
+        /*
+         * Will iterated through the entire tab and print name of item
+         */
+        System.out.println("ajouter une activité");
+        System.out.print("activity : ");
+        return scan.nextLine();
+    }
+    public String saisirReg() {
+        /*
+         * Will iterated through the entire tab and print name of item
+         */
+        System.out.println("Reg?");
+
+        System.out.print("reg : ");
+        return scan.nextLine();
+    }
+
     // Display error message
     public void setErrorMsg(String s) {
         System.out.println(s);
