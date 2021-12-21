@@ -7,7 +7,8 @@ import java.util.concurrent.Callable;
 public class MenuControler implements NodeMenu {
     private MenuModel model;
     private MenuVue vue;
-    private String name;
+
+
 
     public MenuModel getModel() {
         return model;
@@ -27,10 +28,7 @@ public class MenuControler implements NodeMenu {
 
     @Override
     public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name = name;
+        return model.getName();
     }
 
     @Override
@@ -44,9 +42,7 @@ public class MenuControler implements NodeMenu {
                 choix = vue.saisirMenu(model);
                 choice = Integer.parseInt(choix);
                 action = model.getItem(choice).getCall();
-                if (action != null) {
-                    action.call();
-                }
+
                 if (choice >= 0 && choice < model.getSize()) {
                     exitProg = true;
                 }else{

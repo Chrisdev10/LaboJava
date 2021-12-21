@@ -6,7 +6,4 @@ public interface NodeMenu {
     String getName();
     Callable<? extends Object> getCall();
 
-    void setName(String name);
-
-
 }

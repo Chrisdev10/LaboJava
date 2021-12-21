@@ -15,7 +15,7 @@ public class ActivityModel implements Serializable {
             list.add(act);
             return act;
         }
-        return null;
+        return opt.get();
     }
 
     public void removeActivityType(String name) {
