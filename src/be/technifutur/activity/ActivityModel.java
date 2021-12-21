@@ -25,6 +25,10 @@ public class ActivityModel implements Serializable {
         }
     }
 
+    public void modifyActivity(String name, int pos) {
+
+    }
+
     private Optional<ActivityType> getActivity(String name) {
         return list.stream().filter(x -> x.getName().equals(name)).findFirst();
     }

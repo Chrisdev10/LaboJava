@@ -5,10 +5,8 @@ import be.technifutur.toolbox.ToolsBox;
 
 import java.util.concurrent.Callable;
 
-public class AddController implements Callable<ActivityType> {
-    ActivityModel model;
-    ShowAct vue;
-    String name;
+public class AddController extends GestionnaireActivite implements Callable<ActivityType> {
+
     @Override
     public ActivityType call(){
         String activité = "";
@@ -24,10 +22,10 @@ public class AddController implements Callable<ActivityType> {
 
                 if (!ToolsBox.isChecked(getModel().getList(), activité) && !activité.isEmpty()) {
                     temp = vue.saisirActivity("Inscription nécessaire? o/n");
-                    if (temp.equalsIgnoreCase("oui")) {
+                    if (temp.equalsIgnoreCase("oui") || temp.equalsIgnoreCase("o")) {
                         isReg = true;
                     }else{
-                        if (!temp.equalsIgnoreCase("non")) {
+                        if (!temp.equalsIgnoreCase("non") && !temp.equalsIgnoreCase("n")) {
                             vue.unValid();
                             check = false;
                         }
@@ -37,7 +35,6 @@ public class AddController implements Callable<ActivityType> {
                         choice = (vue.confirm("ajouter")).toLowerCase().charAt(0);
                         if (choice == 'o') {
                             model.addActivityType(activité, isReg);
-                            model.getList().forEach(x -> System.out.println(x.getName() + "  " + x.isRegistration()));
                         } else if (choice == 'n') {
                             System.out.println("non ajouté");
                         } else {
@@ -63,32 +60,10 @@ public class AddController implements Callable<ActivityType> {
             } catch (Exception e) {
                 System.out.println("non valide");
             }
+            model.getList().forEach(x -> System.out.println(x.getName() + "  " + x.isRegistration()));
 
         }
         return null;
     }
 
-    public ActivityModel getModel() {
-        return model;
-    }
-
-    public void setModel(ActivityModel model) {
-        this.model = model;
-    }
-
-    public ShowAct getVue() {
-        return vue;
-    }
-
-    public void setVue(ShowAct vue) {
-        this.vue = vue;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -2,9 +2,7 @@ package be.technifutur.factory;
 
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
-import be.technifutur.activity.ActivityModel;
-import be.technifutur.activity.AddController;
-import be.technifutur.activity.ShowAct;
+import be.technifutur.activity.*;
 import be.technifutur.main.CreateMenuMain;
 import be.technifutur.mvc.MenuControler;
 import be.technifutur.mvc.MenuModel;
@@ -67,13 +65,25 @@ public class MenuFactory {
         MenuModel model = new MenuModel("gestionnaire");
         model.addItem(createItem("exit", null));
         model.addItem(createItem("Ajouter une activité",addActivity()));
-        //model.addItem(createItem("Afficher une activité",new ShowAct()));
-        //model.addItem(createItem("Supprimer une activité",new RemoveAct()));
+        model.addItem(createItem("Afficher une activité",ModActivity()));
+        model.addItem(createItem("Supprimer une activité", DeleteActivity()));
         return model;
     }
 
     private AddController addActivity() {
         AddController menu = new AddController();
+        menu.setModel(data);
+        menu.setVue(new ShowAct());
+        return menu;
+    }
+    private DeleteController DeleteActivity() {
+        DeleteController menu = new DeleteController();
+        menu.setModel(data);
+        menu.setVue(new ShowAct());
+        return menu;
+    }
+    private ModifyController ModActivity() {
+        ModifyController menu = new ModifyController();
         menu.setModel(data);
         menu.setVue(new ShowAct());
         return menu;
