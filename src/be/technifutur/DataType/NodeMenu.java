@@ -4,6 +4,6 @@ import java.util.concurrent.Callable;
 
 public interface NodeMenu {
     String getName();
-    Callable<? extends Object> getCall();
+    Callable<? extends Object> getCall() throws Exception;
 
 }

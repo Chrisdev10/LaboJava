@@ -10,9 +10,8 @@ public class AddController implements Callable<ActivityType> {
     ShowAct vue;
     String name;
     @Override
-    public ActivityType call() throws Exception {
+    public ActivityType call(){
         String activité = "";
-        ActivityType type;
         String temp = "";
         boolean isReg = false;
         boolean check = true;

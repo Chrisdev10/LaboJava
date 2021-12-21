@@ -11,7 +11,9 @@ public class GestionMain {
         Callable<? extends Object> call;
         do {
             call  = main.getCall();
-            call.call();
+            if (call != null) {
+                call.call();
+            }
         } while (call != null);
     }
 }

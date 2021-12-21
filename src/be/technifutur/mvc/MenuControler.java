@@ -54,9 +54,6 @@ public class MenuControler implements NodeMenu {
                 System.out.println("hors champ");
             }
         } while (!exitProg);
-        if (choice == 0 && action == null) {
-            vue.exitMsg();
-        }
 
         return action;
     }
