@@ -1,12 +1,16 @@
 package be.technifutur.activity;
 
 import be.technifutur.DataType.ActivityType;
+import be.technifutur.dataStore.DataStore;
 
 import java.io.Serializable;
 import java.util.*;
 
 public class ActivityModel implements Serializable {
-    private List<ActivityType> list = new ArrayList<>();
+
+    DataStore<ArrayList<ActivityType>> dataStore = new DataStore<>("data.txt", ArrayList::new);
+    private List<ActivityType> list = dataStore.getData();
+
 
     public ActivityType addActivityType(String name, boolean reg) {
         Optional<ActivityType> opt = getActivity(name);
@@ -35,6 +39,10 @@ public class ActivityModel implements Serializable {
 
     public List<ActivityType> getList() {
         return list;
+    }
+
+    public void saveData() {
+        dataStore.save();
     }
 
 }

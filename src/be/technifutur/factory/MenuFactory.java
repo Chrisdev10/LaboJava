@@ -1,8 +1,10 @@
 package be.technifutur.factory;
 
+import be.technifutur.DataType.ActivityType;
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
 import be.technifutur.activity.*;
+import be.technifutur.dataStore.DataStore;
 import be.technifutur.main.CreateMenuMain;
 import be.technifutur.mvc.MenuControler;
 import be.technifutur.mvc.MenuModel;
@@ -19,6 +21,9 @@ public class MenuFactory {
     /*
      $ Major method where MVC Architecture is created.
      */
+    public void saveData() {
+        data.saveData();
+    }
     public MenuControler getMenu() {
         return mainMenu = mainCreator(initTab());
     }
