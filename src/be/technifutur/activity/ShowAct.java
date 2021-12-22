@@ -32,7 +32,10 @@ public class ShowAct {
     }
 
     public void showList(ActivityModel model) {
-        model.getList().forEach(x -> System.out.println(x.toString()));
+        //model.getList().forEach(x -> System.out.println(x.toString()));
+        for (int i = 0; i < model.getList().size(); i++) {
+            System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+        }
         System.out.println();
     }
     public void emptyInput() {
@@ -47,11 +50,11 @@ public class ShowAct {
         System.out.println("non valide");
     }
 
-    public void alertMsg(String str, String name, ActivityModel model) {
+    public void alertMsg(String str, int pos, ActivityModel model) {
         System.out.printf("### l'activité suivante va être %s ###%n",str);
         System.out.println();
-        ActivityType type = model.getList().stream().filter( x -> x.getName().equals(name)).findAny().get();
-        System.out.println(type);
+        ActivityType type = model.getList().get(pos);
+        System.out.println(type.toString());
     }
 
 

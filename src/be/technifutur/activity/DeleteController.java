@@ -8,18 +8,23 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
     @Override
     public ActivityType call() {
         char choix = 'i';
+        int choice  = 0;
         vue.showList(model);
-        name = vue.saisirActivity("activité à delete");
-        if (model.getList().stream().anyMatch(x -> x.getName().equals(name))) {
-            vue.alertMsg("supprimée",name, model);
+        try {
+            choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à delete")) - 1;
+        } catch (NumberFormatException e) {
+            choice = -1;
+        }
+        if (choice >= 0 && choice < model.getList().size()) {
+            vue.alertMsg("supprimée",choice, model);
             try {
                 choix = vue.confirm2("supprimer").toLowerCase().charAt(0);
             } catch (Exception e) {
                 vue.unValid();
             }
             if (choix == 'o') {
-                vue.successDel(model.getList().stream().filter(x -> x.getName().equals(name)).findAny().get());
-                model.removeActivityType(name);
+                vue.successDel(model.getList().get(choice));
+                model.removeActivityType(model.getList().get(choice).getName());
             }else{
                 if (choix == 'n') {
                     vue.cancelDelete();

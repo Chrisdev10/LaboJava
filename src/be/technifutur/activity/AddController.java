@@ -63,7 +63,8 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
             } catch (Exception e) {
                 System.out.println("non valide");
             }
-            model.getList().forEach(x -> System.out.println(x.toString()));
+            vue.showList(model);
+            System.out.println(model.getList().get(1));
 
         }
         return null;
