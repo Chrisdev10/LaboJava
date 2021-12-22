@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 public class GestionMain {
     public static void main(String[] args) throws Exception {
         MenuFactory factory = new MenuFactory();
-        MenuControler main = factory.getMenu();
+        MenuControler main = factory.getMainMenu();
         Callable<? extends Object> call;
         do {
             call  = main.getCall();

@@ -32,7 +32,8 @@ public class ShowAct {
     }
 
     public void showList(ActivityModel model) {
-        model.getList().forEach(x -> System.out.println("activity : "+x.getName()+"  reg : "+x.isRegistration()));
+        model.getList().forEach(x -> System.out.println(x.toString()));
+        System.out.println();
     }
     public void emptyInput() {
         System.out.println("pas d'entrée");
@@ -47,14 +48,32 @@ public class ShowAct {
     }
 
     public void alertMsg(String str, String name, ActivityModel model) {
-        System.out.printf("$$$ l'activité suivante va être %s $$$%n",str);
+        System.out.printf("### l'activité suivante va être %s ###%n",str);
         System.out.println();
         ActivityType type = model.getList().stream().filter( x -> x.getName().equals(name)).findAny().get();
         System.out.println(type);
     }
 
-    public void successDelete() {
-        System.out.println("suppression terminée");
+
+    public void successAdd(ActivityType type) {
+        System.out.println("### ajout terminé ###");
+        System.out.println("### élément ajouté ###");
+        System.out.println(type.toString());
+        System.out.println();
+        System.out.println();
+    }
+    public void successMod(ActivityType type) {
+        System.out.println("### élément modifié ###");
+        System.out.println(type.toString());
+        System.out.println();
+        System.out.println();
+    }
+    public void successDel(ActivityType type) {
+        System.out.println("### suppression terminée ###");
+        System.out.println("élément supprimé");
+        System.out.println(type.toString());
+        System.out.println();
+        System.out.println();
     }
 
     public void cancelDelete() {

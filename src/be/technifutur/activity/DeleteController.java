@@ -18,7 +18,7 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
                 vue.unValid();
             }
             if (choix == 'o') {
-                vue.successDelete();
+                vue.successDel(model.getList().stream().filter(x -> x.getName().equals(name)).findAny().get());
                 model.removeActivityType(name);
             }else{
                 if (choix == 'n') {

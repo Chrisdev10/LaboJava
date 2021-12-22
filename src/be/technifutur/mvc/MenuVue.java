@@ -8,6 +8,7 @@ public class MenuVue {
         /*
          * Will iterated through the entire tab and print name of item
          */
+        System.out.println("### "+model.getName()+" ###");
         for (int i = 0; i < model.getSize(); i++) {
             System.out.println("( "+i+" ) "+model.getItem(i).getName());
         }
@@ -15,13 +16,9 @@ public class MenuVue {
         return scan.nextLine();
     }
 
-
     // Display error message
     public void setErrorMsg(String s) {
         System.out.println(s);
     }
-    // Display Bye to user
-    public void exitMsg() {
-        System.out.println("bye bye");
-    }
+
 }

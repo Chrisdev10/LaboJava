@@ -28,13 +28,16 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                         if (!temp.equalsIgnoreCase("non") && !temp.equalsIgnoreCase("n")) {
                             vue.unValid();
                             check = false;
+                        }else{
+                            isReg = false;
                         }
 
                     }
                     if(check) {
                         choice = (vue.confirm("ajouter")).toLowerCase().charAt(0);
                         if (choice == 'o') {
-                            model.addActivityType(activité, isReg);
+                            ActivityType type = model.addActivityType(activité, isReg);
+                            vue.successAdd(type);
                         } else if (choice == 'n') {
                             System.out.println("non ajouté");
                         } else {
@@ -60,7 +63,7 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
             } catch (Exception e) {
                 System.out.println("non valide");
             }
-            model.getList().forEach(x -> System.out.println(x.getName() + "  " + x.isRegistration()));
+            model.getList().forEach(x -> System.out.println(x.toString()));
 
         }
         return null;

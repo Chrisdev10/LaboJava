@@ -8,29 +8,13 @@ public class MenuControler implements NodeMenu {
     private MenuModel model;
     private MenuVue vue;
 
-
-
-    public MenuModel getModel() {
-        return model;
-    }
-
-    public void setModel(MenuModel model) {
-        this.model = model;
-    }
-
-    public MenuVue getVue() {
-        return vue;
-    }
-
-    public void setVue(MenuVue vue) {
-        this.vue = vue;
-    }
-
     @Override
     public String getName() {
         return model.getName();
     }
 
+    // getCall est la méthode appellé au moment de la sélection du user
+    // La méthode va retourner un callable OU lancer un autre controlleur avec getCall
     @Override
     public Callable<? extends Object> getCall() {
         Callable<?> action = null;
@@ -57,4 +41,20 @@ public class MenuControler implements NodeMenu {
 
         return action;
     }
+
+
+
+    /*
+     * SETTER
+     * Injection du model et de  la vue dans le controller
+     */
+
+    public void setModel(MenuModel model) {
+        this.model = model;
+    }
+
+    public void setVue(MenuVue vue) {
+        this.vue = vue;
+    }
+
 }

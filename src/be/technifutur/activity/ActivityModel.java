@@ -8,10 +8,12 @@ import java.util.*;
 
 public class ActivityModel implements Serializable {
 
-    DataStore<ArrayList<ActivityType>> dataStore = new DataStore<>("data.txt", ArrayList::new);
-    private List<ActivityType> list = dataStore.getData();
+    // On donne un path et un élément à instancier. Ce sera la liste d'élément.
+    // getData va injecter les données récoltées dans la list list.
+    DataStore<ArrayList<ActivityType>> dataStore = new DataStore<>("data.myfile", ArrayList::new);
+    private final List<ActivityType> list = dataStore.getData();
 
-
+    // Ajout activité
     public ActivityType addActivityType(String name, boolean reg) {
         Optional<ActivityType> opt = getActivity(name);
         if (opt.isEmpty()) {
@@ -29,8 +31,27 @@ public class ActivityModel implements Serializable {
         }
     }
 
-    public void modifyActivity(String name, int pos) {
-
+    public void modifyActivity(int choix, ActivityType pos, ShowAct vue) {
+        String str = "";
+        if (choix == 1) {
+            str = vue.saisirActivity("entrez la nouvelle activité");
+            pos.setName(str);
+            vue.successMod(pos);
+        }else{
+            if (choix == 2) {
+                pos.setRegistration(!pos.isRegistration());
+                vue.successMod(pos);
+            }else{
+                if (choix == 3) {
+                    str = vue.saisirActivity("entrez la nouvelle activité");
+                    pos.setName(str);
+                    pos.setRegistration(!pos.isRegistration());
+                    vue.successMod(pos);
+                }else{
+                    vue.unValid();
+                }
+            }
+        }
     }
 
     private Optional<ActivityType> getActivity(String name) {
