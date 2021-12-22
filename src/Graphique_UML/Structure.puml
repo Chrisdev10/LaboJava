@@ -1,11 +1,58 @@
 @startuml
-class test{
-    - string name;
+interface Callable<ActivityType>{
+    + ActivityType call ();
 }
-class test2{
-    -string age;
-}
-test <-- test2
+package be.technifutur{
+    package be.technifutur.menu{
+        package be.technifutur.menu.action{
+
+            class GestionnaireActivites{
+                    - ActivityModel model;
+                    - ShowAct vue;
+                    - String name;
+                    + ActivityModel getModel()
+
+                    + void setModel(ActivityModel model)
 
 
+                    + ShowAct getVue()
+
+                    + void setVue(ShowAct vue)
+
+                    + String getName()
+
+                    + void setName(String name)
+
+            }
+            class AddController {
+                + ActivityType call()
+            }
+            class DeleteController {
+                + ActivityType call()
+            }
+            class ModifyController {
+                + ActivityType call()
+            }
+            class ActivityModel{
+                    - DataStore<ArrayList<ActivityType>> dataStore = new DataStore<>("data.myfile", ArrayList::new);
+                    - final List<ActivityType> list = dataStore.getData();
+                    --methode--
+                    + ActivityType addActivityType(String name, boolean reg);
+                    + void removeActivityType(String name);
+                    + void modifyActivity(int choix, ActivityType pos, ShowAct vue);
+                    - Optional<ActivityType> getActivity(String name);
+                    + List<ActivityType> getList();
+                    + void saveData();
+            }
+        }
+    }
+}
+
+AddController <|-- Callable
+DeleteController <|-- Callable
+ModifyController <|-- Callable
+
+AddController <|-- GestionnaireActivites
+DeleteController <|-- GestionnaireActivites
+ModifyController <|-- GestionnaireActivites
 @enduml
