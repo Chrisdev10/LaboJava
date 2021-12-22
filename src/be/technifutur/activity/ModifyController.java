@@ -9,18 +9,17 @@ public class ModifyController extends GestionnaireActivite implements Callable<A
     @Override
     public ActivityType call() throws Exception {
         int choix = 0;
+        int choice = 0;
         ActivityType pos;
         boolean isPresent = false;
         vue.showList(model);
-        name = vue.saisirActivity("### activité à modifier ###");
-        isPresent = model.getList().stream().anyMatch(x -> x.getName().equals(name));
-        if (isPresent) {
-            pos = model
-                    .getList()
-                    .stream()
-                    .filter(x -> x.getName().equals(name))
-                    .findAny()
-                    .get();
+        try {
+            choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à modifier")) - 1;
+        } catch (NumberFormatException e) {
+            choice = -1;
+        }
+        if (choice >= 0 && choice < model.getList().size()) {
+            pos = model.getList().get(choice);
             try {
                 choix = Integer.parseInt(vue.nameOrRegMOD());
 

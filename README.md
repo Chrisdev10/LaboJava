@@ -13,9 +13,10 @@ Les éléments suivants sont déjà fonctionnels :
 * ___Suppresion___ des activités
 * ___Sauvegarde___ des activités
 * ___Affichage___ des activités
+* ___Menu dynamique___ lors de la sélection des activités
 
 Les éléments suivants ne sont pas encore implémentés :
-* ___Menu dynamique___ lors de la sélection des activités
+
 * ___Gestion des horaires___
 
 ## Schéma UML 

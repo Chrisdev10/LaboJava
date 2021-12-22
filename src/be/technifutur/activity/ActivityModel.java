@@ -32,21 +32,30 @@ public class ActivityModel implements Serializable {
     }
 
     public void modifyActivity(int choix, ActivityType pos, ShowAct vue) {
-        String str = "";
+
         if (choix == 1) {
-            str = vue.saisirActivity("entrez la nouvelle activité");
-            pos.setName(str);
-            vue.successMod(pos);
+            final String str = vue.saisirActivity("entrez la nouvelle activité");
+            if (list.stream().noneMatch(x -> x.getName().equals(str))) {
+                pos.setName(str);
+                vue.successMod(pos);
+            }else{
+                vue.alreadyIN();
+            }
+
         }else{
             if (choix == 2) {
                 pos.setRegistration(!pos.isRegistration());
                 vue.successMod(pos);
             }else{
                 if (choix == 3) {
-                    str = vue.saisirActivity("entrez la nouvelle activité");
-                    pos.setName(str);
-                    pos.setRegistration(!pos.isRegistration());
-                    vue.successMod(pos);
+                    final String str = vue.saisirActivity("entrez la nouvelle activité");
+                    if (list.stream().noneMatch(x -> x.getName().equals(str))) {
+                        pos.setName(str);
+                        pos.setRegistration(!pos.isRegistration());
+                        vue.successMod(pos);
+                    }else{
+                        vue.alreadyIN();
+                    }
                 }else{
                     vue.unValid();
                 }
