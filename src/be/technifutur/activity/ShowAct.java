@@ -87,8 +87,8 @@ public class ShowAct {
         System.out.println("""
                 Modifier :
                 1. Nom
-                2. Registration
-                3. Nom et Registration""");
+                2. Inscription
+                3. Nom et Inscription""");
         return scan.nextLine();
     }
 

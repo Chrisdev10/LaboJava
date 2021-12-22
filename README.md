@@ -17,7 +17,7 @@ Les éléments suivants sont déjà fonctionnels :
 
 Les éléments suivants ne sont pas encore implémentés :
 
-* ___Gestion des horaires___
+* ___Gestion des horaires___ (en cours)
 
 ## Schéma UML 
 (Bientôt)

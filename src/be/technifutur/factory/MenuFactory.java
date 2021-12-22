@@ -4,6 +4,7 @@ import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
 import be.technifutur.activity.*;
 import be.technifutur.main.GestionMenuActivity;
+import be.technifutur.main.HoraireMenu;
 import be.technifutur.mvc.MenuControler;
 import be.technifutur.mvc.MenuModel;
 import be.technifutur.mvc.MenuVue;
@@ -36,7 +37,12 @@ public class MenuFactory {
         subMenu.setVue(new MenuVue());
         return subMenu;
     }
-
+    public MenuControler getHoraireMenu() {
+        subMenu = new MenuControler();
+        subMenu.setModel(initSubMenu2());
+        subMenu.setVue(new MenuVue());
+        return subMenu;
+    }
 
 
 
@@ -66,17 +72,27 @@ public class MenuFactory {
     private MenuModel initTab() {
         MenuModel model = new MenuModel("main");
         model.addItem(createItem("exit", null));
-        model.addItem(createItem("gestionnaire",new GestionMenuActivity(getGestionMenu())));
+        model.addItem(createItem("gestionnaire activités",new GestionMenuActivity(getGestionMenu())));
+        model.addItem(createItem("gestionnaire horaire (bientôt...)",new HoraireMenu(getGestionMenu())));
         return model;
     }
 
     // Init all item in sub menu
     private MenuModel initSubMenu() {
         MenuModel model = new MenuModel("gestionnaire");
-        model.addItem(createItem("exit", null));
+        model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une activité",addActivity()));
         model.addItem(createItem("Modifier une activité",ModActivity()));
         model.addItem(createItem("Supprimer une activité", DeleteActivity()));
+        return model;
+    }
+
+    private MenuModel initSubMenu2() {
+        MenuModel model = new MenuModel("horaire");
+        model.addItem(createItem("retour", null));
+        model.addItem(createItem("Ajouter un horaire",addActivity()));
+        model.addItem(createItem("Modifier un horaire",ModActivity()));
+        model.addItem(createItem("Supprimer un horaire", DeleteActivity()));
         return model;
     }
 

@@ -47,7 +47,7 @@ public class ActivityType implements Serializable {
     public String toString() {
         return "ActivityType | " +
                 "name = " + name +
-                "  ** registration = " + registration +
+                "  ** inscription = " + registration +
                 " |";
     }
 }
