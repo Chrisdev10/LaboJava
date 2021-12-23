@@ -3,6 +3,9 @@ package be.technifutur.factory;
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
 import be.technifutur.activity.*;
+import be.technifutur.horaire.AddHoraire;
+import be.technifutur.horaire.HoraireModel;
+import be.technifutur.horaire.HoraireVue;
 import be.technifutur.main.GestionMenuActivity;
 import be.technifutur.main.HoraireMenu;
 import be.technifutur.mvc.MenuControler;
@@ -17,7 +20,7 @@ public class MenuFactory {
     MenuControler subMenu;
     // On instancie un obj Data car il contient les données entrée par l'utilisateur
     ActivityModel data = new ActivityModel();
-
+    HoraireModel data2 = new HoraireModel();
     public void saveData() {
         data.saveData();
     }
@@ -73,7 +76,7 @@ public class MenuFactory {
         MenuModel model = new MenuModel("main");
         model.addItem(createItem("exit", null));
         model.addItem(createItem("gestionnaire activités",new GestionMenuActivity(getGestionMenu())));
-        model.addItem(createItem("gestionnaire horaire (bientôt...)",new HoraireMenu(getGestionMenu())));
+        model.addItem(createItem("gestionnaire horaire (bientôt...)",new HoraireMenu(getHoraireMenu())));
         return model;
     }
 
@@ -90,7 +93,7 @@ public class MenuFactory {
     private MenuModel initSubMenu2() {
         MenuModel model = new MenuModel("horaire");
         model.addItem(createItem("retour", null));
-        model.addItem(createItem("Ajouter un horaire",addActivity()));
+        model.addItem(createItem("Ajouter un horaire",addHoraire()));
         model.addItem(createItem("Modifier un horaire",ModActivity()));
         model.addItem(createItem("Supprimer un horaire", DeleteActivity()));
         return model;
@@ -122,6 +125,13 @@ public class MenuFactory {
         ModifyController menu = new ModifyController();
         menu.setModel(data);
         menu.setVue(new ShowAct());
+        return menu;
+    }
+    private AddHoraire addHoraire() {
+        AddHoraire menu = new AddHoraire();
+        menu.setModel(data2);
+        menu.setModel2(data);
+        menu.setVue(new HoraireVue());
         return menu;
     }
 }
