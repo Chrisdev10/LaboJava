@@ -14,10 +14,11 @@ Les éléments suivants sont déjà fonctionnels :
 * ___Sauvegarde___ des activités
 * ___Affichage___ des activités
 * ___Menu dynamique___ lors de la sélection des activités
+* ___Gestion des horaires___ 
 
 Les éléments suivants ne sont pas encore implémentés :
+* ___Check validité des dates entrées incomplètes___
 
-* ___Gestion des horaires___ (en cours)
 
 ## Schéma UML 
 (Bientôt)
