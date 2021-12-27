@@ -3,14 +3,11 @@ package be.technifutur.horaire;
 import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.ActivityType;
 import be.technifutur.activity.AddController;
+import be.technifutur.toolbox.ToolsBox;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Locale;
 import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class AddHoraire extends HoraireMaster implements Callable<Activity> {
     AddController adder;
@@ -55,28 +52,13 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
             type = getAdder().call();
 
         }
-        LocalDateTime timeStart = checkUserDate();
-        LocalDateTime timeEnd = checkUserDate();
+        LocalDateTime timeStart = ToolsBox.checkUserDate();
+        LocalDateTime timeEnd = ToolsBox.checkUserDate();
         model.addActivity(timeStart, timeEnd, "test", type);
         return null;
     }
 
-    public LocalDateTime checkUserDate() {
-        boolean isOk = false;
-        String date = "";
-        LocalDateTime dateFormatted = null;
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.FRENCH);
-        while (!isOk) {
-            date = vue.saisirActivity("Entrez une date dans le format suivant : dd/mm/yyyy HH:mm");
-            try {
-                dateFormatted = LocalDateTime.parse(date, format);
-                isOk = true;
-            } catch (DateTimeParseException e) {
-                System.out.println("format non valide");
-            }
-        }
-        return dateFormatted;
-    }
+
 
     public AddController getAdder() {
         return adder;

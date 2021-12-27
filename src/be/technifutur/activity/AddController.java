@@ -6,7 +6,11 @@ import be.technifutur.toolbox.ToolsBox;
 import java.util.concurrent.Callable;
 
 public class AddController extends GestionnaireActivite implements Callable<ActivityType> {
+    boolean fromHoraire;
 
+    public AddController(boolean isHoraire) {
+        this.fromHoraire = isHoraire;
+    }
     @Override
     public ActivityType call(){
         String activité = "";
@@ -45,13 +49,15 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                         } else {
                             System.out.println("non valide");
                         }
-
-                        choice = (vue.saisirActivity("Voulez vous continuer? o/n")).toLowerCase().charAt(0);
-                        if (choice == 'n') {
-                            continued = true;
-                        } else if (choice != 'o') {
-                            vue.unValid();
+                        if (!fromHoraire) {
+                            choice = (vue.saisirActivity("Voulez vous continuer? o/n")).toLowerCase().charAt(0);
+                            if (choice == 'n') {
+                                continued = true;
+                            } else if (choice != 'o') {
+                                vue.unValid();
+                            }
                         }
+
                     }
                 }else{
                     if (activité.isEmpty()) {

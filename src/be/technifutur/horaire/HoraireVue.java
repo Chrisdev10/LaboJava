@@ -1,4 +1,5 @@
 package be.technifutur.horaire;
+import be.technifutur.DataType.Activity;
 import be.technifutur.activity.ActivityModel;
 
 import java.util.Scanner;
@@ -29,6 +30,21 @@ public class HoraireVue {
                 1. Ajouter un horaire à une activité existante
                 2. Ajouter un horaire à une nouvelle activité""");
         return scan.nextLine();
+    }
+
+    public String choiceUserMod(){
+        System.out.println("""
+                1. Modifier le nom
+                2. Modifier la date de début
+                3. Modifier la date de fin
+                4. Modifier le type d'activité
+                5. Tout modifier""");
+        return scan.nextLine();
+    }
+
+    public void MsgDelete(Activity e) {
+        System.out.println(e.toString());
+        System.out.println("### élément supprimé ###");
     }
 
 }

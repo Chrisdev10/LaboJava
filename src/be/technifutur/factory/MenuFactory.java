@@ -3,9 +3,7 @@ package be.technifutur.factory;
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
 import be.technifutur.activity.*;
-import be.technifutur.horaire.AddHoraire;
-import be.technifutur.horaire.HoraireModel;
-import be.technifutur.horaire.HoraireVue;
+import be.technifutur.horaire.*;
 import be.technifutur.main.GestionMenuActivity;
 import be.technifutur.main.HoraireMenu;
 import be.technifutur.mvc.MenuControler;
@@ -21,9 +19,11 @@ public class MenuFactory {
     // On instancie un obj Data car il contient les données entrée par l'utilisateur
     ActivityModel data = new ActivityModel();
     HoraireModel data2 = new HoraireModel();
+
     public void saveData() {
         data.saveData();
     }
+
     public void saveData2() {
         data2.saveData();
     }
@@ -43,13 +43,13 @@ public class MenuFactory {
         subMenu.setVue(new MenuVue());
         return subMenu;
     }
+
     public MenuControler getHoraireMenu() {
         subMenu = new MenuControler();
         subMenu.setModel(initSubMenu2());
         subMenu.setVue(new MenuVue());
         return subMenu;
     }
-
 
 
     //CREATE MAIN MENU
@@ -78,8 +78,8 @@ public class MenuFactory {
     private MenuModel initTab() {
         MenuModel model = new MenuModel("Menu Principal");
         model.addItem(createItem("exit", null));
-        model.addItem(createItem("gestionnaire activités",new GestionMenuActivity(getGestionMenu())));
-        model.addItem(createItem("gestionnaire horaire (bientôt...)",new HoraireMenu(getHoraireMenu())));
+        model.addItem(createItem("gestionnaire activités", new GestionMenuActivity(getGestionMenu())));
+        model.addItem(createItem("gestionnaire horaire (bientôt...)", new HoraireMenu(getHoraireMenu())));
         return model;
     }
 
@@ -87,8 +87,8 @@ public class MenuFactory {
     private MenuModel initSubMenu() {
         MenuModel model = new MenuModel("Menu Secondaire : Gestion des activités");
         model.addItem(createItem("retour", null));
-        model.addItem(createItem("Ajouter une activité",addActivity()));
-        model.addItem(createItem("Modifier une activité",ModActivity()));
+        model.addItem(createItem("Ajouter une activité", addActivity(false)));
+        model.addItem(createItem("Modifier une activité", ModActivity()));
         model.addItem(createItem("Supprimer une activité", DeleteActivity()));
         return model;
     }
@@ -96,9 +96,9 @@ public class MenuFactory {
     private MenuModel initSubMenu2() {
         MenuModel model = new MenuModel("Menu Secondaire : Gestion des horaires");
         model.addItem(createItem("retour", null));
-        model.addItem(createItem("Ajouter une activité à l'horaire",addHoraire()));
-        model.addItem(createItem("Modifier l'horaire d'une activité",ModActivity()));
-        model.addItem(createItem("Supprimer une activité à l'horaire", DeleteActivity()));
+        model.addItem(createItem("Ajouter une activité à l'horaire", addHoraire()));
+        model.addItem(createItem("Modifier l'horaire d'une activité", ModHoraire()));
+        model.addItem(createItem("Supprimer une activité à l'horaire", DeleteHoraire()));
         return model;
     }
 
@@ -112,12 +112,13 @@ public class MenuFactory {
      */
 
 
-    private AddController addActivity() {
-        AddController menu = new AddController();
+    private AddController addActivity(boolean isHoraire) {
+        AddController menu = new AddController(isHoraire);
         menu.setModel(data);
         menu.setVue(new ShowAct());
         return menu;
     }
+
     private DeleteController DeleteActivity() {
         DeleteController menu = new DeleteController();
         menu.setModel(data);
@@ -125,17 +126,34 @@ public class MenuFactory {
         menu.setVue(new ShowAct());
         return menu;
     }
+
     private ModifyController ModActivity() {
         ModifyController menu = new ModifyController();
         menu.setModel(data);
         menu.setVue(new ShowAct());
         return menu;
     }
+
     private AddHoraire addHoraire() {
         AddHoraire menu = new AddHoraire();
         menu.setModel(data2);
         menu.setModel2(data);
-        menu.setAdder(addActivity());
+        menu.setAdder(addActivity(true));
+        menu.setVue(new HoraireVue());
+        return menu;
+    }
+
+    private DeleteHoraire DeleteHoraire() {
+        DeleteHoraire menu = new DeleteHoraire();
+        menu.setModel(data2);
+        menu.setVue(new HoraireVue());
+        return menu;
+    }
+    private ModHoraire ModHoraire() {
+        ModHoraire menu = new ModHoraire();
+        menu.setModel(data2);
+        menu.setModel2(data);
+        menu.setAdder(addActivity(true));
         menu.setVue(new HoraireVue());
         return menu;
     }
