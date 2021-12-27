@@ -135,6 +135,7 @@ public class MenuFactory {
         AddHoraire menu = new AddHoraire();
         menu.setModel(data2);
         menu.setModel2(data);
+        menu.setAdder(addActivity());
         menu.setVue(new HoraireVue());
         return menu;
     }

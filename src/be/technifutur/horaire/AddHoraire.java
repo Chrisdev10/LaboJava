@@ -1,16 +1,23 @@
 package be.technifutur.horaire;
 
 import be.technifutur.DataType.Activity;
+import be.technifutur.DataType.ActivityType;
+import be.technifutur.activity.AddController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddHoraire extends HoraireMaster implements Callable<Activity> {
+    AddController adder;
     @Override
     public Activity call() throws Exception {
         int user = 0;
+        ActivityType type = null;
         boolean check = false;
 
         vue.showType(model);
@@ -42,12 +49,40 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
                 } catch (NumberFormatException e) {
                     System.out.println("non numérique");
                 }
+                type = model2.getList().get(user);
             }
-            LocalDateTime timeStart = LocalDateTime.of(1992, 10, 1, 12, 30);
-            LocalDateTime timeEnd = LocalDateTime.of(1992, 10, 1, 13, 30);
-            model.addActivity(timeStart, timeEnd, "test", model2.getList().get(user));
+        }else{
+            type = getAdder().call();
 
         }
+        LocalDateTime timeStart = checkUserDate();
+        LocalDateTime timeEnd = checkUserDate();
+        model.addActivity(timeStart, timeEnd, "test", type);
         return null;
+    }
+
+    public LocalDateTime checkUserDate() {
+        boolean isOk = false;
+        String date = "";
+        LocalDateTime dateFormatted = null;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.FRENCH);
+        while (!isOk) {
+            date = vue.saisirActivity("Entrez une date dans le format suivant : dd/mm/yyyy HH:mm");
+            try {
+                dateFormatted = LocalDateTime.parse(date, format);
+                isOk = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("format non valide");
+            }
+        }
+        return dateFormatted;
+    }
+
+    public AddController getAdder() {
+        return adder;
+    }
+
+    public void setAdder(AddController adder) {
+        this.adder = adder;
     }
 }

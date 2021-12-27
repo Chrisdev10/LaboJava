@@ -10,6 +10,7 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
     @Override
     public ActivityType call(){
         String activité = "";
+        ActivityType type = null;
         String temp = "";
         boolean isReg = false;
         boolean check = true;
@@ -18,6 +19,7 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
         while(!continued) {
 
             try {
+                vue.showList(model);
                 activité = vue.saisirActivity("Nom de l'activité : ");
 
                 if (!ToolsBox.isChecked(getModel().getList(), activité) && !activité.isEmpty()) {
@@ -36,7 +38,7 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                     if(check) {
                         choice = (vue.confirm("ajouter")).toLowerCase().charAt(0);
                         if (choice == 'o') {
-                            ActivityType type = model.addActivityType(activité, isReg);
+                            type = model.addActivityType(activité, isReg);
                             vue.successAdd(type);
                         } else if (choice == 'n') {
                             System.out.println("non ajouté");
@@ -63,11 +65,8 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
             } catch (Exception e) {
                 System.out.println("non valide");
             }
-            vue.showList(model);
-            System.out.println(model.getList().get(1));
-
         }
-        return null;
+        return type;
     }
 
 }
