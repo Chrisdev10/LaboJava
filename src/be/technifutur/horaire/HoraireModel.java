@@ -5,7 +5,7 @@ import be.technifutur.DataType.ActivityType;
 import be.technifutur.dataStore.DataStore;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class HoraireModel implements Serializable {
     DataStore<ArrayList<Activity>> dataStore = new DataStore<>("data2.myfile", ArrayList::new);
     private final List<Activity> liste = dataStore.getData();
 
-    public void addActivity(LocalDate start, LocalDate end, String name, ActivityType type) {
+    public void addActivity(LocalDateTime start, LocalDateTime end, String name, ActivityType type) {
         Activity activity = new Activity(start, end, name, type);
         liste.add(activity);
     }

@@ -16,5 +16,6 @@ public class GestionMain {
             }
         } while (call != null);
         factory.saveData();
+        factory.saveData2();
     }
 }

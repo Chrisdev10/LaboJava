@@ -24,6 +24,9 @@ public class MenuFactory {
     public void saveData() {
         data.saveData();
     }
+    public void saveData2() {
+        data2.saveData();
+    }
 
     /*
      * Methode de création de menu
@@ -73,7 +76,7 @@ public class MenuFactory {
 
     // Init all model item in the list
     private MenuModel initTab() {
-        MenuModel model = new MenuModel("main");
+        MenuModel model = new MenuModel("Menu Principal");
         model.addItem(createItem("exit", null));
         model.addItem(createItem("gestionnaire activités",new GestionMenuActivity(getGestionMenu())));
         model.addItem(createItem("gestionnaire horaire (bientôt...)",new HoraireMenu(getHoraireMenu())));
@@ -82,7 +85,7 @@ public class MenuFactory {
 
     // Init all item in sub menu
     private MenuModel initSubMenu() {
-        MenuModel model = new MenuModel("gestionnaire");
+        MenuModel model = new MenuModel("Menu Secondaire : Gestion des activités");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une activité",addActivity()));
         model.addItem(createItem("Modifier une activité",ModActivity()));
@@ -91,11 +94,11 @@ public class MenuFactory {
     }
 
     private MenuModel initSubMenu2() {
-        MenuModel model = new MenuModel("horaire");
+        MenuModel model = new MenuModel("Menu Secondaire : Gestion des horaires");
         model.addItem(createItem("retour", null));
-        model.addItem(createItem("Ajouter un horaire",addHoraire()));
-        model.addItem(createItem("Modifier un horaire",ModActivity()));
-        model.addItem(createItem("Supprimer un horaire", DeleteActivity()));
+        model.addItem(createItem("Ajouter une activité à l'horaire",addHoraire()));
+        model.addItem(createItem("Modifier l'horaire d'une activité",ModActivity()));
+        model.addItem(createItem("Supprimer une activité à l'horaire", DeleteActivity()));
         return model;
     }
 
@@ -118,6 +121,7 @@ public class MenuFactory {
     private DeleteController DeleteActivity() {
         DeleteController menu = new DeleteController();
         menu.setModel(data);
+        menu.setModel2(data2);
         menu.setVue(new ShowAct());
         return menu;
     }

@@ -1,7 +1,5 @@
 package be.technifutur.horaire;
 
-import be.technifutur.DataType.Activity;
-import be.technifutur.DataType.ActivityType;
 import be.technifutur.activity.ActivityModel;
 
 public class HoraireMaster {

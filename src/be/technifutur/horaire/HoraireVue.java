@@ -10,6 +10,11 @@ public class HoraireVue {
             System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
         }
     }
+    public void showType(HoraireModel model) {
+        for (int i = 0; i < model.getList().size(); i++) {
+            System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+        }
+    }
 
     public String saisirActivity(String str) {
         /*
@@ -25,4 +30,5 @@ public class HoraireVue {
                 2. Ajouter un horaire à une nouvelle activité""");
         return scan.nextLine();
     }
+
 }
