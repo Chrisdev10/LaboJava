@@ -6,7 +6,6 @@ import be.technifutur.activity.AddController;
 import be.technifutur.toolbox.ToolsBox;
 
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalField;
 import java.util.concurrent.Callable;
 
 
