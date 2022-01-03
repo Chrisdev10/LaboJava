@@ -60,7 +60,10 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
     }
 
     private void nameChange(Activity activity) {
-        String str = vue.saisirActivity("Entrez le nouveau nom");
+        String str = "";
+        while(str.isEmpty()) {
+            str = vue.saisirActivity("Entrez le nouveau nom");
+        }
         model.ModActivityName(activity, str);
     }
     private void startDate(Activity activity) {

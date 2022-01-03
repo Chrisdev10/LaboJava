@@ -3,6 +3,8 @@ package be.technifutur.factory;
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
 import be.technifutur.activity.*;
+import be.technifutur.dataStore.DataStore;
+import be.technifutur.dataStore.DataType;
 import be.technifutur.horaire.*;
 import be.technifutur.main.GestionMenuActivity;
 import be.technifutur.main.HoraireMenu;
@@ -16,17 +18,18 @@ import java.util.concurrent.Callable;
 public class MenuFactory {
     MenuControler mainMenu;
     MenuControler subMenu;
+
     // On instancie un obj Data car il contient les données entrée par l'utilisateur
-    ActivityModel data = new ActivityModel();
-    HoraireModel data2 = new HoraireModel();
+    DataStore<DataType> dataStorage = new DataStore<>("finalData.txt", DataType::new);
+    DataType type = dataStorage.getData();
+    ActivityModel data = type.getType();
+    HoraireModel data2 = type.getActivity();
 
     public void saveData() {
-        data.saveData();
+        dataStorage.save();
     }
 
-    public void saveData2() {
-        data2.saveData();
-    }
+
 
     /*
      * Methode de création de menu

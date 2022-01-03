@@ -25,7 +25,7 @@ public class ToolsBox {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy H:mm", Locale.FRENCH);
         DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d-MM-yyyy H:mm", Locale.FRENCH);
         DateTimeFormatter format3 = DateTimeFormatter.ofPattern("d MM yyyy H:mm", Locale.FRENCH);
-        
+
         while (!isOk) {
             System.out.println("Entrez une date dans le format suivant : d/mm/yyyy H:mm");
             date = scan.nextLine();

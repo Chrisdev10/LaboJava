@@ -57,6 +57,7 @@ public class Activity implements Serializable {
         return "Nom de L'activité = "+ name + "\n" +
                 "\tDate Début = " + start.format(formatter) +"\n"+
                 "\tDate Fin = " + end.format(formatter) +"\n"+
-                "\ttype = " + type.getName();
+                "\ttype = " + type.getName()+"\n"+
+                "\tinscription = " + (type.isRegistration() ? "obligatoire" : "non obligatoire");
     }
 }

@@ -31,10 +31,8 @@ public class DeleteHoraire  extends HoraireMaster implements Callable<Activity> 
             model.dellActivity(model.getList().get(choix));
 
         }else{
-            System.out.println("### CANCELED ###");
+            vue.cancelDelete();
         }
-
-        System.out.println("finish");
         return null;
 
 

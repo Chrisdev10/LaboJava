@@ -10,8 +10,7 @@ public class ActivityModel implements Serializable {
 
     // On donne un path et un élément à instancier. Ce sera la liste d'élément.
     // getData va injecter les données récoltées dans la liste list.
-    DataStore<ArrayList<ActivityType>> dataStore = new DataStore<>("data.myfile", ArrayList::new);
-    private final List<ActivityType> list = dataStore.getData();
+    private final List<ActivityType> list = new ArrayList<>();
 
     // Ajout activité
     public ActivityType addActivityType(String name, boolean reg) {
@@ -79,8 +78,5 @@ public class ActivityModel implements Serializable {
         return list;
     }
     // Appel de la méthode saveData pour sauvegarder les données entrées
-    public void saveData() {
-        dataStore.save();
-    }
 
 }

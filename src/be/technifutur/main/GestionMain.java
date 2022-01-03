@@ -10,6 +10,5 @@ public class GestionMain {
         MenuControler main = factory.getMainMenu();
         ToolsBox.looperMain(main);
         factory.saveData();
-        factory.saveData2();
     }
 }

@@ -59,6 +59,10 @@ public class HoraireVue {
         System.out.println("### élément supprimé ###");
     }
 
+    public void cancelDelete() {
+        System.out.println("### suppression annulée ###");
+    }
+
     public void dateAlert() {
         System.out.println("La date entrée n'est pas valide");
     }

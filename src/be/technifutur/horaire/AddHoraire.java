@@ -57,7 +57,10 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
             System.out.println("erreur lors de l'ajout de type");
             this.call();
         }
-        name = vue.saisirActivity("entrez le nom de l'activité");
+        while (name.isEmpty()) {
+            name = vue.saisirActivity("entrez le nom de l'activité");
+
+        }
         LocalDateTime timeStart = ToolsBox.checkUserDate(null,true);
         if (timeStart != null) {
             LocalDateTime timeEnd = ToolsBox.checkUserDate(timeStart,false);
