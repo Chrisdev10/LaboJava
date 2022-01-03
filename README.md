@@ -8,16 +8,19 @@ Le programme est un gestionnaire d'activités et d'horaires. Il permettra à son
 
 Les éléments suivants sont déjà fonctionnels : 
 
-* ___Ajout___ des activités
-* ___Modification___ des activités
-* ___Suppresion___ des activités
-* ___Sauvegarde___ des activités
-* ___Affichage___ des activités
-* ___Menu dynamique___ lors de la sélection des activités
-* ___Gestion des horaires___ 
-
+✅ * ___Ajout___ des activités
+✅ * ___Modification___ des activités
+✅ * ___Suppresion___ des activités
+✅ * ___Sauvegarde___ des activités
+✅ * ___Affichage___ des activités
+✅ * ___Menu dynamique___ lors de la sélection des activités
+✅ * ___Gestion des horaires___ 
+✅ * ___Check validité des dates entrées incomplètes___
 Les éléments suivants ne sont pas encore implémentés :
-* ___Check validité des dates entrées incomplètes___
+
+🚫 * ___Possibilité de n'entrer que l'heure et les minutes pdt ajout horaire___
+🚫 * ___Gestion inscirption___
+
 
 
 ## Schéma UML 
