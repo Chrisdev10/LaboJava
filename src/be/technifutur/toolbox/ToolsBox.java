@@ -1,7 +1,7 @@
 package be.technifutur.toolbox;
 
 import be.technifutur.DataType.ActivityType;
-import be.technifutur.horaire.HoraireVue;
+import be.technifutur.mvc.MenuControler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
 
 public class ToolsBox {
     private static final Scanner scan = new Scanner(System.in);
@@ -40,6 +41,16 @@ public class ToolsBox {
         System.out.printf("êtes vous sur de %s ? o/n %n",str);
         System.out.print("choix : ");
         return scan.nextLine();
+    }
+
+    public static void looperMain(MenuControler menu) throws Exception {
+        Callable<? extends Object> call;
+        do {
+            call  = menu.getCall();
+            if (call != null) {
+                call.call();
+            }
+        } while (call != null);
     }
 
 }

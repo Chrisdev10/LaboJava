@@ -9,7 +9,7 @@ import java.util.*;
 public class ActivityModel implements Serializable {
 
     // On donne un path et un élément à instancier. Ce sera la liste d'élément.
-    // getData va injecter les données récoltées dans la list list.
+    // getData va injecter les données récoltées dans la liste list.
     DataStore<ArrayList<ActivityType>> dataStore = new DataStore<>("data.myfile", ArrayList::new);
     private final List<ActivityType> list = dataStore.getData();
 
@@ -23,13 +23,19 @@ public class ActivityModel implements Serializable {
         }
         return opt.get();
     }
-
+    // Suppression d'un type d'activité avec pour paramètre le nom de cette activité
     public void removeActivityType(String name) {
         Optional<ActivityType> opt = getActivity(name);
         if (opt.isPresent()) {
             list.remove(opt.get());
         }
     }
+
+    // Modification d'un type d'activité avec pour paramètre
+    // 1) le choix de modification du user
+    // 2) l'activité en question
+    // 3) la vue afin d'afficher les éléments
+    /////////////////////////////////////////
 
     public void modifyActivity(int choix, ActivityType pos, ShowAct vue) {
 
@@ -63,14 +69,16 @@ public class ActivityModel implements Serializable {
         }
     }
 
+    // Récupère un élément avec le nom tapez par le user
     private Optional<ActivityType> getActivity(String name) {
         return list.stream().filter(x -> x.getName().equals(name)).findFirst();
     }
 
+
     public List<ActivityType> getList() {
         return list;
     }
-
+    // Appel de la méthode saveData pour sauvegarder les données entrées
     public void saveData() {
         dataStore.save();
     }

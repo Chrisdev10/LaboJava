@@ -6,6 +6,10 @@ import be.technifutur.horaire.HoraireModel;
 import java.util.concurrent.Callable;
 
 public class DeleteController extends GestionnaireActivite implements Callable<ActivityType> {
+
+    // Injection du model2 afin de vérifier si le type d'activité est utilisé ou non
+    // dans l'horaire.
+    //////////////////
     HoraireModel model2;
     @Override
     public ActivityType call() {

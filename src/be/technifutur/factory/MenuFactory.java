@@ -79,7 +79,7 @@ public class MenuFactory {
         MenuModel model = new MenuModel("Menu Principal");
         model.addItem(createItem("exit", null));
         model.addItem(createItem("gestionnaire activités", new GestionMenuActivity(getGestionMenu())));
-        model.addItem(createItem("gestionnaire horaire (bientôt...)", new HoraireMenu(getHoraireMenu())));
+        model.addItem(createItem("gestionnaire horaire", new HoraireMenu(getHoraireMenu())));
         return model;
     }
 
@@ -90,6 +90,7 @@ public class MenuFactory {
         model.addItem(createItem("Ajouter une activité", addActivity(false)));
         model.addItem(createItem("Modifier une activité", ModActivity()));
         model.addItem(createItem("Supprimer une activité", DeleteActivity()));
+        model.addItem(createItem("Afficher les activités", showAll()));
         return model;
     }
 
@@ -99,6 +100,7 @@ public class MenuFactory {
         model.addItem(createItem("Ajouter une activité à l'horaire", addHoraire()));
         model.addItem(createItem("Modifier l'horaire d'une activité", ModHoraire()));
         model.addItem(createItem("Supprimer une activité à l'horaire", DeleteHoraire()));
+        model.addItem(createItem("Afficher les horaires", showHoraire()));
         return model;
     }
 
@@ -133,6 +135,12 @@ public class MenuFactory {
         menu.setVue(new ShowAct());
         return menu;
     }
+    private ShowAllAct showAll() {
+        ShowAllAct menu = new ShowAllAct();
+        menu.setModel(data);
+        menu.setVue(new ShowAct());
+        return menu;
+    }
 
     private AddHoraire addHoraire() {
         AddHoraire menu = new AddHoraire();
@@ -154,6 +162,12 @@ public class MenuFactory {
         menu.setModel(data2);
         menu.setModel2(data);
         menu.setAdder(addActivity(true));
+        menu.setVue(new HoraireVue());
+        return menu;
+    }
+    private ShowAllHoraire showHoraire() {
+        ShowAllHoraire menu = new ShowAllHoraire();
+        menu.setModel(data2);
         menu.setVue(new HoraireVue());
         return menu;
     }

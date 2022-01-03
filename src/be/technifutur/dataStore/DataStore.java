@@ -23,6 +23,7 @@ public class DataStore<D extends Serializable> {
                 e.printStackTrace();
             }
         }
+
         return data;
     }
 

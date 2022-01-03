@@ -8,6 +8,10 @@ import java.util.concurrent.Callable;
 public class AddController extends GestionnaireActivite implements Callable<ActivityType> {
     boolean fromHoraire;
 
+    // Permet de savoir si l'appel call se fait depuis le menu horaire ou non.
+    // Si false -> Continue? demandé  pendant l'ajout
+    // Si true (call from horaire) -> Continue? non demandé
+
     public AddController(boolean isHoraire) {
         this.fromHoraire = isHoraire;
     }
@@ -56,6 +60,8 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                             } else if (choice != 'o') {
                                 vue.unValid();
                             }
+                        }else{
+                            continued = true;
                         }
 
                     }

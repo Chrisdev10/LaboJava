@@ -3,6 +3,7 @@ package be.technifutur.main;
 import be.technifutur.DataType.ActivityType;
 
 import be.technifutur.mvc.MenuControler;
+import be.technifutur.toolbox.ToolsBox;
 
 import java.util.concurrent.Callable;
 
@@ -21,13 +22,7 @@ public class GestionMenuActivity implements Callable<ActivityType> {
     }
     @Override
     public ActivityType call() throws Exception {
-        Callable<? extends Object> call;
-        do {
-            call  = menu.getCall();
-            if (call != null) {
-                call.call();
-            }
-        } while (call != null);
+        ToolsBox.looperMain(menu);
         return null;
     }
 }
