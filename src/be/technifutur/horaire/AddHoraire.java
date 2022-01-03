@@ -6,6 +6,7 @@ import be.technifutur.activity.AddController;
 import be.technifutur.toolbox.ToolsBox;
 
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
 import java.util.concurrent.Callable;
 
 
@@ -53,8 +54,17 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
 
         }
         LocalDateTime timeStart = ToolsBox.checkUserDate();
-        LocalDateTime timeEnd = ToolsBox.checkUserDate();
-        model.addActivity(timeStart, timeEnd, "test", type);
+        if (timeStart != null) {
+            LocalDateTime timeEnd = ToolsBox.checkUserDate(timeStart);
+            if (timeEnd != null) {
+                model.addActivity(timeStart, timeEnd, "test", type);
+            }else{
+                vue.DateAlert();
+            }
+        }else{
+            vue.DateAlert();
+        }
+
         return null;
     }
 

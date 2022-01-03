@@ -31,7 +31,32 @@ public class ToolsBox {
                 System.out.println("format non valide");
             }
         }
-        return dateFormatted;
+        if(dateFormatted.isBefore(LocalDateTime.now())){
+            return null;
+        }else{
+            return dateFormatted;
+        }
+    }
+    public static LocalDateTime checkUserDate(LocalDateTime before) {
+        boolean isOk = false;
+        String date = "";
+        LocalDateTime dateFormatted = null;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.FRENCH);
+        while (!isOk) {
+            System.out.println("Entrez une date dans le format suivant : dd/mm/yyyy HH:mm");
+            date = scan.nextLine();
+            try {
+                dateFormatted = LocalDateTime.parse(date, format);
+                isOk = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("format non valide");
+            }
+        }
+        if(dateFormatted.isBefore(before)){
+            return null;
+        }else{
+            return dateFormatted;
+        }
     }
 
     public static String confirm(String str) {

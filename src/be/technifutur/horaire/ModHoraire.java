@@ -3,7 +3,9 @@ package be.technifutur.horaire;
 import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.ActivityType;
 import be.technifutur.activity.AddController;
+import be.technifutur.toolbox.ToolsBox;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.Callable;
 
 public class ModHoraire extends HoraireMaster implements Callable<Activity> {
@@ -59,10 +61,21 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         model.ModActivityName(activity, str);
     }
     private void startDate(Activity activity) {
-        model.ModActivityStart(activity);
+        LocalDateTime date = ToolsBox.checkUserDate();
+        if (date == null) {
+            vue.DateAlert();
+        } else {
+            model.ModActivityStart(activity, date);
+        }
+
     }
     private void endDate(Activity activity) {
-        model.ModActivityEnd(activity);
+        LocalDateTime date = ToolsBox.checkUserDate(activity.getStart());
+        if (date == null) {
+            vue.DateAlert();
+        } else {
+            model.ModActivityEnd(activity, date);
+        }
     }
     private void typeActivity(Activity activity) {
         boolean check = false;

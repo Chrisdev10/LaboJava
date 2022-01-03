@@ -7,14 +7,24 @@ import java.util.Scanner;
 public class HoraireVue {
     private final Scanner scan = new Scanner(System.in);
     public void showType(ActivityModel model) {
-        for (int i = 0; i < model.getList().size(); i++) {
-            System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+        if (model.getList().size() == 0) {
+            System.out.println("***liste vide***");
+        }else{
+            for (int i = 0; i < model.getList().size(); i++) {
+                System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+            }
         }
+
     }
     public void showType(HoraireModel model) {
-        for (int i = 0; i < model.getList().size(); i++) {
-            System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+        if (model.getList().size() == 0) {
+            System.out.println("***liste vide***");
+        }else{
+            for (int i = 0; i < model.getList().size(); i++) {
+                System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+            }
         }
+
     }
 
     public String saisirActivity(String str) {
@@ -45,6 +55,10 @@ public class HoraireVue {
     public void MsgDelete(Activity e) {
         System.out.println(e.toString());
         System.out.println("### élément supprimé ###");
+    }
+
+    public void DateAlert() {
+        System.out.println("La date entrée n'est pas valide");
     }
 
 }

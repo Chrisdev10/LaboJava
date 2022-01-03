@@ -24,11 +24,11 @@ public class HoraireModel implements Serializable {
     public void ModActivityName(Activity e, String str) {
         liste.stream().filter(x -> x.getName().equals(e.getName())).findFirst().get().setName(str);
     }
-    public void ModActivityStart(Activity e) {
-        liste.stream().filter(x -> x.getName().equals(e.getName())).findFirst().get().setStart(ToolsBox.checkUserDate());
+    public void ModActivityStart(Activity e, LocalDateTime dateTime) {
+        liste.stream().filter(x -> x.getName().equals(e.getName())).findFirst().get().setStart(dateTime);
     }
-    public void ModActivityEnd(Activity e) {
-        liste.stream().filter(x -> x.getName().equals(e.getName())).findFirst().get().setStart(ToolsBox.checkUserDate());
+    public void ModActivityEnd(Activity e, LocalDateTime dateTime) {
+        liste.stream().filter(x -> x.getName().equals(e.getName())).findFirst().get().setEnd(dateTime);
     }
     public void ModActivityType(Activity e, ActivityType act) {
         liste.stream().filter(x -> x.getName().equals(e.getName())).findFirst().get().setType(act);
