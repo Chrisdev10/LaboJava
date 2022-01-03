@@ -13,6 +13,9 @@ public class DeleteHoraire  extends HoraireMaster implements Callable<Activity> 
         int choix = 0;
         String confirm = "";
         boolean check = false;
+        if (model.getList().size() == 0) {
+            return null;
+        }
         while (!check) {
             try {
                 choix = Integer.parseInt(vue.saisirActivity("Tapez le numéro de l'activité à supprimer")) - 1;
@@ -24,7 +27,7 @@ public class DeleteHoraire  extends HoraireMaster implements Callable<Activity> 
         confirm = ToolsBox.confirm("supprimer");
         if (confirm.equalsIgnoreCase("oui") || confirm.charAt(0) == 'o') {
 
-            vue.MsgDelete(model.getList().get(choix));
+            vue.msgDelete(model.getList().get(choix));
             model.dellActivity(model.getList().get(choix));
 
         }else{

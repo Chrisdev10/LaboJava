@@ -10,52 +10,57 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
 
 public class ToolsBox {
     private static final Scanner scan = new Scanner(System.in);
+    private final String DATE_PATTERN = "";
     public static boolean isChecked(List<ActivityType> act, String name) {
         return act.stream().anyMatch(x -> x.getName().equals(name));
     }
-    public static LocalDateTime checkUserDate() {
+    public static LocalDateTime checkUserDate(LocalDateTime before, boolean isStart) {
         boolean isOk = false;
         String date = "";
         LocalDateTime dateFormatted = null;
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.FRENCH);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy H:mm", Locale.FRENCH);
+        DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d-MM-yyyy H:mm", Locale.FRENCH);
+        DateTimeFormatter format3 = DateTimeFormatter.ofPattern("d MM yyyy H:mm", Locale.FRENCH);
+        
         while (!isOk) {
-            System.out.println("Entrez une date dans le format suivant : dd/mm/yyyy HH:mm");
+            System.out.println("Entrez une date dans le format suivant : d/mm/yyyy H:mm");
             date = scan.nextLine();
             try {
                 dateFormatted = LocalDateTime.parse(date, format);
                 isOk = true;
             } catch (DateTimeParseException e) {
-                System.out.println("format non valide");
+                try {
+                    dateFormatted = LocalDateTime.parse(date, format2);
+                    isOk = true;
+                } catch (DateTimeParseException f) {
+                    try {
+                        dateFormatted = LocalDateTime.parse(date, format3);
+                        isOk = true;
+                    } catch (DateTimeParseException g) {
+                        System.out.println("format non valide");
+                    }
+                }
             }
         }
-        if(dateFormatted.isBefore(LocalDateTime.now())){
-            return null;
-        }else{
-            return dateFormatted;
-        }
-    }
-    public static LocalDateTime checkUserDate(LocalDateTime before) {
-        boolean isOk = false;
-        String date = "";
-        LocalDateTime dateFormatted = null;
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.FRENCH);
-        while (!isOk) {
-            System.out.println("Entrez une date dans le format suivant : dd/mm/yyyy HH:mm");
-            date = scan.nextLine();
-            try {
-                dateFormatted = LocalDateTime.parse(date, format);
-                isOk = true;
-            } catch (DateTimeParseException e) {
-                System.out.println("format non valide");
+        if(isStart) {
+            if (dateFormatted.isBefore(LocalDateTime.now())) {
+                System.out.println("date inférieur au " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy H:mm", Locale.FRENCH)));
+                return null;
+            } else {
+                return dateFormatted;
             }
         }
-        if(dateFormatted.isBefore(before)){
-            return null;
-        }else{
-            return dateFormatted;
+        else{
+            if (dateFormatted.isBefore(before)) {
+                System.out.println("date inférieur au " + before.format(DateTimeFormatter.ofPattern("d MMMM yyyy H:mm", Locale.FRENCH)));
+                return null;
+            } else {
+                return dateFormatted;
+            }
         }
     }
 

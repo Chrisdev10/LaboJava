@@ -50,6 +50,7 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                             vue.successAdd(type);
                         } else if (choice == 'n') {
                             System.out.println("non ajouté");
+                            return null;
                         } else {
                             System.out.println("non valide");
                         }

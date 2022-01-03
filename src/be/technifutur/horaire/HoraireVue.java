@@ -39,6 +39,7 @@ public class HoraireVue {
         System.out.println("""
                 1. Ajouter un horaire à une activité existante
                 2. Ajouter un horaire à une nouvelle activité""");
+        System.out.print("choix : ");
         return scan.nextLine();
     }
 
@@ -49,16 +50,26 @@ public class HoraireVue {
                 3. Modifier la date de fin
                 4. Modifier le type d'activité
                 5. Tout modifier""");
+        System.out.print("choix : ");
         return scan.nextLine();
     }
 
-    public void MsgDelete(Activity e) {
+    public void msgDelete(Activity e) {
         System.out.println(e.toString());
         System.out.println("### élément supprimé ###");
     }
 
-    public void DateAlert() {
+    public void dateAlert() {
         System.out.println("La date entrée n'est pas valide");
+    }
+
+    public void confirmAdd(Activity e) {
+        System.out.println("***Activité ajoutée***");
+        System.out.println(e.toString());
+    }
+    public void confirmMod(Activity e) {
+        System.out.println("***Activité modifiée***");
+        System.out.println(e.toString());
     }
 
 }

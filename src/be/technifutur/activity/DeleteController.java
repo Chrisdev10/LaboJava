@@ -16,8 +16,11 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
         char choix = 'i';
         int choice  = 0;
         vue.showList(model);
+        if (model.getList().size() == 0) {
+            return null;
+        }
         try {
-            choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à delete")) - 1;
+            choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à supprimer")) - 1;
         } catch (NumberFormatException e) {
             choice = -1;
         }
@@ -36,7 +39,7 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
                     vue.cancelDelete();
                 }
                 else{
-                    System.out.println("élément dans l'horaire");
+                   vue.failDel(model.getList().get(choice));
                 }
             }
 

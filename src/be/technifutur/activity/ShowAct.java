@@ -32,10 +32,14 @@ public class ShowAct {
     }
 
     public void showList(ActivityModel model) {
-        //model.getList().forEach(x -> System.out.println(x.toString()));
-        for (int i = 0; i < model.getList().size(); i++) {
-            System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+        if (model.getList().size() == 0) {
+            System.out.println("***liste vide***");
+        }else{
+            for (int i = 0; i < model.getList().size(); i++) {
+                System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
+            }
         }
+
         System.out.println();
     }
     public void emptyInput() {
@@ -78,6 +82,13 @@ public class ShowAct {
         System.out.println();
         System.out.println();
     }
+    public void failDel(ActivityType type) {
+        System.out.println("### suppression annulée ###");
+        System.out.println("/!\\ élément présent dans la liste des horaires /!\\");
+        System.out.println(type.toString());
+        System.out.println();
+        System.out.println();
+    }
 
     public void cancelDelete() {
         System.out.println("suppression annulée");
@@ -89,8 +100,7 @@ public class ShowAct {
                 1. Nom
                 2. Inscription
                 3. Nom et Inscription""");
+        System.out.print("choix :");
         return scan.nextLine();
     }
-
-
 }

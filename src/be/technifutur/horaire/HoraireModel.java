@@ -14,8 +14,7 @@ public class HoraireModel implements Serializable {
     DataStore<ArrayList<Activity>> dataStore = new DataStore<>("data2.myfile", ArrayList::new);
     private final List<Activity> liste = dataStore.getData();
 
-    public void addActivity(LocalDateTime start, LocalDateTime end, String name, ActivityType type) {
-        Activity activity = new Activity(start, end, name, type);
+    public void addActivity(Activity activity) {
         liste.add(activity);
     }
     public void dellActivity(Activity e) {

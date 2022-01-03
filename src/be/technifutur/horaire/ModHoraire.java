@@ -18,6 +18,9 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         String confirm = "";
         Activity activity = null;
         boolean check = false;
+        if (model.getList().size() == 0) {
+            return null;
+        }
         while (!check) {
             try {
                 choix = Integer.parseInt(vue.saisirActivity("Tapez le numéro de l'activité à modifier")) - 1;
@@ -61,18 +64,20 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         model.ModActivityName(activity, str);
     }
     private void startDate(Activity activity) {
-        LocalDateTime date = ToolsBox.checkUserDate();
+        LocalDateTime date = ToolsBox.checkUserDate(null,true);
         if (date == null) {
-            vue.DateAlert();
+            vue.dateAlert();
+            startDate(activity);
         } else {
             model.ModActivityStart(activity, date);
         }
 
     }
     private void endDate(Activity activity) {
-        LocalDateTime date = ToolsBox.checkUserDate(activity.getStart());
+        LocalDateTime date = ToolsBox.checkUserDate(activity.getStart(),false);
         if (date == null) {
-            vue.DateAlert();
+            vue.dateAlert();
+            endDate(activity);
         } else {
             model.ModActivityEnd(activity, date);
         }

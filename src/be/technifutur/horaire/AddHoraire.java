@@ -14,6 +14,7 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
     @Override
     public Activity call() throws Exception {
         int user = 0;
+        String name = "";
         ActivityType type = null;
         boolean check = false;
 
@@ -52,16 +53,23 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
             type = getAdder().call();
 
         }
-        LocalDateTime timeStart = ToolsBox.checkUserDate();
+        if (type == null) {
+            System.out.println("erreur lors de l'ajout de type");
+            this.call();
+        }
+        name = vue.saisirActivity("entrez le nom de l'activité");
+        LocalDateTime timeStart = ToolsBox.checkUserDate(null,true);
         if (timeStart != null) {
-            LocalDateTime timeEnd = ToolsBox.checkUserDate(timeStart);
+            LocalDateTime timeEnd = ToolsBox.checkUserDate(timeStart,false);
             if (timeEnd != null) {
-                model.addActivity(timeStart, timeEnd, "test", type);
+                Activity act = new Activity(timeStart, timeEnd, name, type);
+                model.addActivity(act);
+                vue.confirmAdd(act);
             }else{
-                vue.DateAlert();
+                vue.dateAlert();
             }
         }else{
-            vue.DateAlert();
+            vue.dateAlert();
         }
 
         return null;

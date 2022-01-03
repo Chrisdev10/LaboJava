@@ -13,6 +13,9 @@ public class ModifyController extends GestionnaireActivite implements Callable<A
         ActivityType pos;
         boolean isPresent = false;
         vue.showList(model);
+        if (model.getList().size() == 0) {
+            return null;
+        }
         try {
             choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à modifier")) - 1;
         } catch (NumberFormatException e) {
