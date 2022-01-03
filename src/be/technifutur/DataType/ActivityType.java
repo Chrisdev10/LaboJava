@@ -46,6 +46,6 @@ public class ActivityType implements Serializable {
     @Override
     public String toString() {
         return "Type d'activité : " + name +
-                "  ** inscription = " + registration;
+                "  ** inscription = " + (this.isRegistration() ? "obligatoire" : "non obligatoire");
     }
 }

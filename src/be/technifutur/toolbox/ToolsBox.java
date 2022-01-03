@@ -10,14 +10,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
 
 public class ToolsBox {
     private static final Scanner scan = new Scanner(System.in);
-    private final String DATE_PATTERN = "";
+
+    // Vérifie si l'activité existe déjà
     public static boolean isChecked(List<ActivityType> act, String name) {
         return act.stream().anyMatch(x -> x.getName().equals(name));
     }
+
+    // Méthode qui vérifie si la date entrée par l'utilisateur est :
+    // 1.  antérieur à la date now() si !isStart
+    // 2.  antérieur à la date dateStart si isStart
+    // 3.  conforme à l'un des 3 patterns
+
     public static LocalDateTime checkUserDate(LocalDateTime before, boolean isStart) {
         boolean isOk = false;
         String date = "";
@@ -64,6 +70,7 @@ public class ToolsBox {
         }
     }
 
+    // Message de confirmation
     public static String confirm(String str) {
         /*
          * Will iterated through the entire tab and print name of item
@@ -73,6 +80,7 @@ public class ToolsBox {
         return scan.nextLine();
     }
 
+    // Loop de menu
     public static void looperMain(MenuControler menu) throws Exception {
         Callable<? extends Object> call;
         do {

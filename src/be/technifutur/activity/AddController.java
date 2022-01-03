@@ -27,10 +27,12 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
         while(!continued) {
 
             try {
-                vue.showList(model);
-                activité = vue.saisirActivity("Nom de l'activité : ");
 
-                if (!ToolsBox.isChecked(getModel().getList(), activité) && !activité.isEmpty()) {
+                activité = vue.saisirActivity("Nom de l'activité : (enter pour sortir)");
+                if (activité.isEmpty()) {
+                    return null;
+                }
+                if (!ToolsBox.isChecked(getModel().getList(), activité)) {
                     temp = vue.saisirActivity("Inscription nécessaire? o/n");
                     if (temp.equalsIgnoreCase("oui") || temp.equalsIgnoreCase("o")) {
                         isReg = true;

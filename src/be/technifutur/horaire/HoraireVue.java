@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class HoraireVue {
     private final Scanner scan = new Scanner(System.in);
-    public void showType(ActivityModel model) {
+    public void showType(ActivityModel model){
         if (model.getList().size() == 0) {
             System.out.println("***liste vide***");
         }else{
@@ -14,9 +14,17 @@ public class HoraireVue {
                 System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
             }
         }
-
+    }
+    public void showType2(ActivityModel model){
+        System.out.println("*** LISTE TYPE ACTIVITE ***");
+        if (model.getList().size() == 0) {
+            System.out.println("***liste vide***");
+        }else{
+            model.getList().forEach( x -> System.out.println(x.toString()));
+        }
     }
     public void showType(HoraireModel model) {
+        System.out.println("*** HORAIRE ***");
         if (model.getList().size() == 0) {
             System.out.println("***liste vide***");
         }else{

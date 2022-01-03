@@ -1,8 +1,6 @@
 package be.technifutur.activity;
 
 import be.technifutur.DataType.ActivityType;
-import be.technifutur.dataStore.DataStore;
-
 import java.io.Serializable;
 import java.util.*;
 

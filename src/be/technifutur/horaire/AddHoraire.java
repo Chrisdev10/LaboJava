@@ -17,8 +17,7 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
         String name = "";
         ActivityType type = null;
         boolean check = false;
-
-        vue.showType(model);
+        vue.showType2(model2);
         while (!check) {
             try {
                 user = Integer.parseInt(vue.choiceUserAdd());

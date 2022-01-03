@@ -16,8 +16,7 @@ import java.util.concurrent.Callable;
 
 
 public class MenuFactory {
-    MenuControler mainMenu;
-    MenuControler subMenu;
+    MenuControler main;
 
     // On instancie un obj Data car il contient les données entrée par l'utilisateur
     DataStore<DataType> dataStorage = new DataStore<>("finalData.txt", DataType::new);
@@ -36,22 +35,22 @@ public class MenuFactory {
      * getMainMenu génère le MAIN menu. Il prend un model définit dans initTab
      * getGestionMenu génère le subMenu avec un model définit dans initsubTab
      */
-    public MenuControler getMainMenu() {
-        return mainMenu = mainCreator(initTab());
+    public MenuControler getMain() {
+        return main = mainCreator(initTab());
     }
 
     public MenuControler getGestionMenu() {
-        subMenu = new MenuControler();
-        subMenu.setModel(initSubMenu());
-        subMenu.setVue(new MenuVue());
-        return subMenu;
+        main = new MenuControler();
+        main.setModel(initSubMenu());
+        main.setVue(new MenuVue());
+        return main;
     }
 
     public MenuControler getHoraireMenu() {
-        subMenu = new MenuControler();
-        subMenu.setModel(initSubMenu2());
-        subMenu.setVue(new MenuVue());
-        return subMenu;
+        main = new MenuControler();
+        main.setModel(initSubMenu2());
+        main.setVue(new MenuVue());
+        return main;
     }
 
 

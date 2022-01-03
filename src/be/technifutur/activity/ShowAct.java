@@ -51,7 +51,7 @@ public class ShowAct {
     }
 
     public void unValid() {
-        System.out.println("non valide");
+        System.out.println("/!\\ non valide /!\\");
     }
 
     public void alertMsg(String str, int pos, ActivityModel model) {

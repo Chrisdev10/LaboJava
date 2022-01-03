@@ -7,7 +7,7 @@ import be.technifutur.toolbox.ToolsBox;
 public class GestionMain {
     public static void main(String[] args) throws Exception {
         MenuFactory factory = new MenuFactory();
-        MenuControler main = factory.getMainMenu();
+        MenuControler main = factory.getMain();
         ToolsBox.looperMain(main);
         factory.saveData();
     }

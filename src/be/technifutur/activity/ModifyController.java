@@ -10,6 +10,7 @@ public class ModifyController extends GestionnaireActivite implements Callable<A
     public ActivityType call() throws Exception {
         int choix = 0;
         int choice = 0;
+        String user = "";
         ActivityType pos;
         boolean isPresent = false;
         vue.showList(model);
@@ -17,7 +18,12 @@ public class ModifyController extends GestionnaireActivite implements Callable<A
             return null;
         }
         try {
-            choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à modifier")) - 1;
+            user = vue.saisirActivity("Séléctionnez l'activité à modifier (enter pour sortir)");
+            if (user.isEmpty()) {
+                return null;
+            }else{
+                choice = Integer.parseInt(user)-1;
+            }
         } catch (NumberFormatException e) {
             choice = -1;
         }
@@ -31,8 +37,6 @@ public class ModifyController extends GestionnaireActivite implements Callable<A
             }
             model.modifyActivity(choix, pos, vue);
 
-        }else{
-            System.out.println("nope");
         }
         return null;
     }

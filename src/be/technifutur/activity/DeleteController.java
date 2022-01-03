@@ -15,15 +15,23 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
     public ActivityType call() {
         char choix = 'i';
         int choice  = 0;
+        String user = "";
         vue.showList(model);
         if (model.getList().size() == 0) {
             return null;
         }
         try {
-            choice = Integer.parseInt(vue.saisirActivity("Séléctionnez l'activité à supprimer")) - 1;
+            user = vue.saisirActivity("Séléctionnez l'activité à supprimer (enter pour sortir)");
+            if (user.isEmpty()) {
+                return null;
+            }else{
+                choice = Integer.parseInt(user) - 1;
+            }
         } catch (NumberFormatException e) {
             choice = -1;
+            vue.unValid();
         }
+
         if (choice >= 0 && choice < model.getList().size()) {
             vue.alertMsg("supprimée",choice, model);
             try {
@@ -43,8 +51,6 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
                 }
             }
 
-        }else{
-            vue.unValid();
         }
         return null;
     }
