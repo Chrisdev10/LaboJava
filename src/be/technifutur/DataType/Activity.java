@@ -1,7 +1,6 @@
 package be.technifutur.DataType;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -67,5 +66,23 @@ public class Activity implements Serializable {
                 " | Nom : "+name+
                 " | Type : "+type.getName()+
                 " | Inscription : "+(type.isRegistration() ? "V" : "X");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Activity activity = (Activity) o;
+
+        if (name != null ? !name.equals(activity.name) : activity.name != null) return false;
+        return type != null ? type.equals(activity.type) : activity.type == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 }

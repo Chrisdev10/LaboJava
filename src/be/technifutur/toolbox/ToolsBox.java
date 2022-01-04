@@ -1,15 +1,16 @@
 package be.technifutur.toolbox;
 
+import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.ActivityType;
+import be.technifutur.horaire.HoraireModel;
 import be.technifutur.mvc.MenuControler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 public class ToolsBox {
     private static final Scanner scan = new Scanner(System.in);
@@ -24,17 +25,20 @@ public class ToolsBox {
     // 2.  antérieur à la date dateStart si isStart
     // 3.  conforme à l'un des 3 patterns
 
-    public static LocalDateTime checkUserDate(LocalDateTime before, boolean isStart) {
+    public static LocalDateTime checkUserDate(LocalDateTime starter, boolean isStart) {
         boolean isOk = false;
         String date = "";
+        String hours = "";
         LocalDateTime dateFormatted = null;
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy H:mm", Locale.FRENCH);
         DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d-MM-yyyy H:mm", Locale.FRENCH);
         DateTimeFormatter format3 = DateTimeFormatter.ofPattern("d MM yyyy H:mm", Locale.FRENCH);
 
         while (!isOk) {
-            System.out.println("Entrez une date dans le format suivant : d/mm/yyyy H:mm");
+            System.out.println("Entrez une date de "+ (isStart ? "début" : "fin") +" dans le format suivant : d/mm/yyyy");
             date = scan.nextLine();
+            System.out.println("Entrez une heure dans le format suivant : HH/MM");
+            date = date.trim().concat(" ").concat(scan.nextLine().trim());
             try {
                 dateFormatted = LocalDateTime.parse(date, format);
                 isOk = true;
@@ -61,8 +65,8 @@ public class ToolsBox {
             }
         }
         else{
-            if (dateFormatted.isBefore(before)) {
-                System.out.println("date inférieur au " + before.format(DateTimeFormatter.ofPattern("d MMMM yyyy H:mm", Locale.FRENCH)));
+            if (dateFormatted.isBefore(starter)) {
+                System.out.println("date inférieur au " + starter.format(DateTimeFormatter.ofPattern("d MMMM yyyy H:mm", Locale.FRENCH)));
                 return null;
             } else {
                 return dateFormatted;
@@ -89,6 +93,15 @@ public class ToolsBox {
                 call.call();
             }
         } while (call != null);
+    }
+
+    public static boolean timeChecker(Activity activity, LocalDateTime start, LocalDateTime end, HoraireModel model) {
+        Collection<Activity> act= model.getList().stream().filter(x -> x.equals(activity)).collect(Collectors.toCollection(ArrayList::new));
+        if (!act.isEmpty()) {
+            return act.stream().anyMatch(x -> start.isBefore(x.getEnd()) && end.isAfter(x.getStart()));
+        }else{
+            return false;
+        }
     }
 
 }

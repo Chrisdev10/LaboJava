@@ -2,6 +2,8 @@ package be.technifutur.horaire;
 import be.technifutur.DataType.Activity;
 import be.technifutur.activity.ActivityModel;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class HoraireVue {
@@ -82,6 +84,16 @@ public class HoraireVue {
     public void confirmMod(Activity e) {
         System.out.println("***Activité modifiée***");
         System.out.println(e.toString());
+    }
+
+    public void dateConflict(Activity act) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy H:mm", Locale.FRENCH);
+        System.out.println("""
+                *** Ajout annulé ***
+                Raison : Conflit dans les dates !""");
+        System.out.println("La date d'une activité portant le même nom se trouve entre le "+act.getStart().format(format)+" et le "
+                            +act.getEnd().format(format));
+
     }
 
 }
