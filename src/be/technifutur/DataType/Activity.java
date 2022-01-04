@@ -60,4 +60,12 @@ public class Activity implements Serializable {
                 "\ttype = " + type.getName()+"\n"+
                 "\tinscription = " + (type.isRegistration() ? "obligatoire" : "non obligatoire");
     }
+    public String toStringLinear() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd  MMMM  yyyy HH:mm", Locale.FRENCH);
+        return "Début : "+ start.format(formatter)+
+                " | Fin : "+end.format(formatter)+
+                " | Nom : "+name+
+                " | Type : "+type.getName()+
+                " | Inscription : "+(type.isRegistration() ? "V" : "X");
+    }
 }

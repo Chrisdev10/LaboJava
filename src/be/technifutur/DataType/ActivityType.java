@@ -48,4 +48,8 @@ public class ActivityType implements Serializable {
         return "Type d'activité : " + name +
                 "  ** inscription = " + (this.isRegistration() ? "obligatoire" : "non obligatoire");
     }
+    public String toString2() {
+        return "Type d'activité : " + name;
+
+    }
 }

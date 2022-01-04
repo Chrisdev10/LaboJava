@@ -3,6 +3,7 @@ package be.technifutur.horaire;
 import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.ActivityType;
 import be.technifutur.activity.AddController;
+import be.technifutur.exceptions.UnvalidFieldException;
 import be.technifutur.toolbox.ToolsBox;
 
 import java.time.LocalDateTime;
@@ -22,13 +23,15 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
             try {
                 user = Integer.parseInt(vue.choiceUserAdd());
                 if (user < 1 || user > 2) {
-                    System.out.println("non valide");
-                }else{
+                    throw new UnvalidFieldException("choix non valide");
+                } else {
                     check = true;
                 }
 
             } catch (NumberFormatException e) {
                 System.out.println("non numérique");
+            }catch (UnvalidFieldException e) {
+                System.out.println(e.getMessage());
             }
         }
         check = false;
