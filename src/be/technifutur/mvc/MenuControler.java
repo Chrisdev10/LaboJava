@@ -24,6 +24,10 @@ public class MenuControler implements NodeMenu {
         do {
             try {
                 choix = vue.saisirMenu(model);
+                while (choix.isEmpty()) {
+                    vue.setErrorMsg("/!\\ pas de valeur entrée /!\\");
+                    choix = vue.saisirMenu(model);
+                }
                 choice = Integer.parseInt(choix);
                 action = model.getItem(choice).getCall();
 
@@ -33,7 +37,7 @@ public class MenuControler implements NodeMenu {
                     vue.setErrorMsg("choix non valide : "+choice);
                 }
             } catch (NumberFormatException e) {
-                vue.setErrorMsg("non numérique : "+choix);
+                vue.setErrorMsg("non numérique ! => "+choix);
             } catch (Exception e) {
                 System.out.println("hors champ");
             }

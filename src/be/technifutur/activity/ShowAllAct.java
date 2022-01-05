@@ -22,7 +22,7 @@ public class ShowAllAct extends GestionnaireActivite implements Callable<Activit
         return null;
     }
 
-    private static class CompareByName implements Comparator<ActivityType> {
+    private class CompareByName implements Comparator<ActivityType> {
 
         @Override
         public int compare(ActivityType o1, ActivityType o2) {
