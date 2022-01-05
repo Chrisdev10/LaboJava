@@ -1,8 +1,11 @@
 package be.technifutur.inscription;
 
 
+import be.technifutur.horaire.HoraireModel;
+
 public class SubMaster {
-    ModelSub model;
+    private HoraireModel horaireModel;
+    private ModelSub model;
     ViewSub vue;
 
     public ModelSub getModel() {
@@ -19,5 +22,13 @@ public class SubMaster {
 
     public void setVue(ViewSub vue) {
         this.vue = vue;
+    }
+
+    public HoraireModel getHoraireModel() {
+        return horaireModel;
+    }
+
+    public void setHoraireModel(HoraireModel horaireModel) {
+        this.horaireModel = horaireModel;
     }
 }

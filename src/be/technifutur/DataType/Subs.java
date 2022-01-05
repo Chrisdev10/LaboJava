@@ -2,15 +2,13 @@ package be.technifutur.DataType;
 
 import java.io.Serializable;
 
-public class Personne implements Serializable {
+public class Subs implements Serializable {
     private String nom;
     private String prenom;
-    private int age;
 
-    public Personne(String nom, String prenom, int age) {
+    public Subs(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-        this.age = age;
     }
 
     public String getNom() {
@@ -29,40 +27,28 @@ public class Personne implements Serializable {
         this.prenom = prenom;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Personne personne = (Personne) o;
+        Subs subs = (Subs) o;
 
-        if (age != personne.age) return false;
-        if (nom != null ? !nom.equals(personne.nom) : personne.nom != null) return false;
-        return prenom != null ? prenom.equals(personne.prenom) : personne.prenom == null;
+        if (nom != null ? !nom.equals(subs.nom) : subs.nom != null) return false;
+        return prenom != null ? prenom.equals(subs.prenom) : subs.prenom == null;
     }
 
     @Override
     public int hashCode() {
         int result = nom != null ? nom.hashCode() : 0;
         result = 31 * result + (prenom != null ? prenom.hashCode() : 0);
-        result = 31 * result + age;
         return result;
     }
 
     @Override
     public String toString() {
-        return "Personne{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", age=" + age +
-                '}';
+        return
+                "nom = " + nom +
+                "  prenom = " + prenom;
     }
 }

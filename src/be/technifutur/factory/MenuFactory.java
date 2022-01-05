@@ -8,6 +8,7 @@ import be.technifutur.dataStore.DataType;
 import be.technifutur.horaire.*;
 import be.technifutur.inscription.AddSub;
 import be.technifutur.inscription.ModelSub;
+import be.technifutur.inscription.ShowAllSubs;
 import be.technifutur.inscription.ViewSub;
 import be.technifutur.main.GestionMenuActivity;
 import be.technifutur.main.HoraireMenu;
@@ -123,6 +124,7 @@ public class MenuFactory {
         MenuModel model = new MenuModel("Menu Secondaire : Gestion des inscriptions");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une inscription", subsAdder()));
+        model.addItem(createItem("Afficher la liste d'inscription", subsShow()));
         return model;
 
     }
@@ -197,6 +199,13 @@ public class MenuFactory {
 
     private AddSub subsAdder() {
         AddSub menu = new AddSub();
+        menu.setHoraireModel(data2);
+        menu.setModel(data3);
+        menu.setVue(new ViewSub());
+        return menu;
+    }
+    private ShowAllSubs subsShow() {
+        ShowAllSubs menu = new ShowAllSubs();
         menu.setModel(data3);
         menu.setVue(new ViewSub());
         return menu;

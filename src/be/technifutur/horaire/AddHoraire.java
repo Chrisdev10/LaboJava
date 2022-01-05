@@ -26,13 +26,17 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
         vue.showType2(model2);
         while (!check) {
             try {
-                user = Integer.parseInt(vue.choiceUserAdd());
-                if (user < 1 || user > 2) {
-                    throw new UnvalidFieldException("choix non valide");
-                } else {
+                if (model2.getList().isEmpty()) {
+                    user=2;
                     check = true;
+                }else{
+                    user = Integer.parseInt(vue.choiceUserAdd());
+                    if (user < 1 || user > 2) {
+                        throw new UnvalidFieldException("choix non valide");
+                    } else {
+                        check = true;
+                    }
                 }
-
             } catch (NumberFormatException e) {
                 System.out.println("non numérique");
             }catch (UnvalidFieldException e) {
