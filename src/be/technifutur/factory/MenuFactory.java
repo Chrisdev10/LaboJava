@@ -6,10 +6,7 @@ import be.technifutur.activity.*;
 import be.technifutur.dataStore.DataStore;
 import be.technifutur.dataStore.DataType;
 import be.technifutur.horaire.*;
-import be.technifutur.inscription.AddSub;
-import be.technifutur.inscription.ModelSub;
-import be.technifutur.inscription.ShowAllSubs;
-import be.technifutur.inscription.ViewSub;
+import be.technifutur.inscription.*;
 import be.technifutur.main.GestionMenuActivity;
 import be.technifutur.main.HoraireMenu;
 import be.technifutur.main.SubMain;
@@ -26,9 +23,11 @@ public class MenuFactory {
     // On instancie un obj Data car il contient les données entrée par l'utilisateur
     DataStore<DataType> dataStorage = new DataStore<>("finalData.txt", DataType::new);
     DataType type = dataStorage.getData();
-    ActivityModel data = type.getType();
-    HoraireModel data2 = type.getActivity();
-    ModelSub data3 = type.getSub();
+    ActivityModel typeActivityModel = type.getType();
+    HoraireModel horaireModel = type.getActivity();
+    ModelHoraireSubs horaireAndSubsModel = type.getSub();
+    SubData subs = type.getSubber();
+    PersonneData personne = type.getPersonne();
 
     public void saveData() {
         dataStorage.save();
@@ -141,36 +140,36 @@ public class MenuFactory {
 
     private AddController addActivity(boolean isHoraire) {
         AddController menu = new AddController(isHoraire);
-        menu.setModel(data);
+        menu.setModel(typeActivityModel);
         menu.setVue(new ShowAct());
         return menu;
     }
 
     private DeleteController DeleteActivity() {
         DeleteController menu = new DeleteController();
-        menu.setModel(data);
-        menu.setModel2(data2);
+        menu.setModel(typeActivityModel);
+        menu.setModel2(horaireModel);
         menu.setVue(new ShowAct());
         return menu;
     }
 
     private ModifyController ModActivity() {
         ModifyController menu = new ModifyController();
-        menu.setModel(data);
+        menu.setModel(typeActivityModel);
         menu.setVue(new ShowAct());
         return menu;
     }
     private ShowAllAct showAll() {
         ShowAllAct menu = new ShowAllAct();
-        menu.setModel(data);
+        menu.setModel(typeActivityModel);
         menu.setVue(new ShowAct());
         return menu;
     }
 
     private AddHoraire addHoraire() {
         AddHoraire menu = new AddHoraire();
-        menu.setModel(data2);
-        menu.setModel2(data);
+        menu.setModel(horaireModel);
+        menu.setModel2(typeActivityModel);
         menu.setAdder(addActivity(true));
         menu.setVue(new HoraireVue());
         return menu;
@@ -178,36 +177,40 @@ public class MenuFactory {
 
     private DeleteHoraire DeleteHoraire() {
         DeleteHoraire menu = new DeleteHoraire();
-        menu.setModel(data2);
+        menu.setModel(horaireModel);
         menu.setVue(new HoraireVue());
         return menu;
     }
     private ModHoraire ModHoraire() {
         ModHoraire menu = new ModHoraire();
-        menu.setModel(data2);
-        menu.setModel2(data);
+        menu.setModel(horaireModel);
+        menu.setModel2(typeActivityModel);
         menu.setAdder(addActivity(true));
         menu.setVue(new HoraireVue());
         return menu;
     }
     private ShowAllHoraire showHoraire() {
         ShowAllHoraire menu = new ShowAllHoraire();
-        menu.setModel(data2);
+        menu.setModel(horaireModel);
         menu.setVue(new HoraireVue());
         return menu;
     }
 
     private AddSub subsAdder() {
         AddSub menu = new AddSub();
-        menu.setHoraireModel(data2);
-        menu.setModel(data3);
+        menu.setSubs(subs);
+        menu.setHoraireModel(horaireModel);
+        menu.setModel(horaireAndSubsModel);
+        menu.setPersonne(personne);
         menu.setVue(new ViewSub());
         return menu;
     }
     private ShowAllSubs subsShow() {
         ShowAllSubs menu = new ShowAllSubs();
-        menu.setModel(data3);
-        menu.setVue(new ViewSub());
+        menu.setModel(horaireAndSubsModel);
+        ViewSub subview = new ViewSub();
+        subview.setModel(horaireAndSubsModel);
+        menu.setVue(subview);
         return menu;
     }
 }

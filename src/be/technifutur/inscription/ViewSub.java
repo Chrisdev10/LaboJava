@@ -1,7 +1,7 @@
 package be.technifutur.inscription;
 
 import be.technifutur.DataType.Activity;
-import be.technifutur.DataType.Subs;
+import be.technifutur.DataType.Personne;
 
 
 import java.util.List;
@@ -14,8 +14,12 @@ public class ViewSub extends SubMaster {
         if (getModel().getPersonne().isEmpty()) {
             System.out.println("*** LISTE VIDE ***");
         }else{
-            for (Map.Entry<Activity, List<Subs>> entry : getModel().getPersonne().entrySet()) {
-                System.out.println(entry.getKey()+"   "+entry.getValue());
+            for (Map.Entry<Activity, List<Personne>> entry : getModel().getPersonne().entrySet()) {
+                System.out.println(entry.getKey().toStringLinear());
+                System.out.println(" Liste d'inscription =>");
+                for (int i = 0; i < entry.getValue().size(); i++) {
+                    System.out.printf("[%d] %s \n",i+1,entry.getValue().get(i));
+                }
             }
         }
 
@@ -39,5 +43,14 @@ public class ViewSub extends SubMaster {
         }
 
         System.out.println();
+    }
+
+    public String choosePersonne(List<Personne> data) {
+        System.out.println(data.size());
+        for (int i = 0; i < data.size(); i++) {
+            System.out.printf("(%d) %s\n",i+1,data.get(i).toString());
+        }
+        System.out.println("("+(data.size()+1)+") une nouvelle personne \n");
+        return new Scanner(System.in).nextLine();
     }
 }

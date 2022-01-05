@@ -5,14 +5,14 @@ import be.technifutur.horaire.HoraireModel;
 
 public class SubMaster {
     private HoraireModel horaireModel;
-    private ModelSub model;
+    private ModelHoraireSubs model;
     ViewSub vue;
 
-    public ModelSub getModel() {
+    public ModelHoraireSubs getModel() {
         return model;
     }
 
-    public void setModel(ModelSub model) {
+    public void setModel(ModelHoraireSubs model) {
         this.model = model;
     }
 

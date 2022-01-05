@@ -1,7 +1,7 @@
 package be.technifutur.inscription;
 
 import be.technifutur.DataType.Activity;
-import be.technifutur.DataType.Subs;
+import be.technifutur.DataType.Personne;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ModelSub extends SubMaster implements Serializable {
-    private final Map<Activity, List<Subs>> personne = new HashMap<>();
+public class ModelHoraireSubs extends SubMaster implements Serializable {
+    private final Map<Activity, List<Personne>> personne = new HashMap<>();
 
-    public void AddPersonne(Activity e, Subs s) {
-        List<Subs> sub = personne.get(e);
+    public void AddPersonne(Activity e, Personne s) {
+        List<Personne> sub = personne.get(e);
         if (sub == null) {
             sub = new ArrayList<>();
             sub.add(s);
@@ -21,10 +21,9 @@ public class ModelSub extends SubMaster implements Serializable {
         }else{
             sub.add(s);
         }
-        System.out.println("done");
     }
 
-    public Map<Activity, List<Subs>> getPersonne() {
+    public Map<Activity, List<Personne>> getPersonne() {
         return personne;
     }
 }

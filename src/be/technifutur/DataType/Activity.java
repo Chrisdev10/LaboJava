@@ -57,7 +57,7 @@ public class Activity implements Serializable {
                 "\tDate Début = " + start.format(formatter) +"\n"+
                 "\tDate Fin = " + end.format(formatter) +"\n"+
                 "\ttype = " + type.getName()+"\n"+
-                "\tinscription = " + (type.isRegistration() ? "obligatoire" : "non obligatoire");
+                "\tinscription = " + (type.isRegistration() ? "obligatoire" : "facultative");
     }
     public String toStringLinear() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd  MMMM  yyyy HH:mm", Locale.FRENCH);
@@ -65,7 +65,7 @@ public class Activity implements Serializable {
                 " | Fin : "+end.format(formatter)+
                 " | Nom : "+name+
                 " | Type : "+type.getName()+
-                " | Inscription : "+(type.isRegistration() ? "V" : "X");
+                " | Inscription : "+(type.isRegistration() ? "obligatoire" : "facultative");
     }
 
     @Override
