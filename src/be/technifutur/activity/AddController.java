@@ -33,48 +33,45 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                     return null;
                 }
                 if (!ToolsBox.isChecked(getModel().getList(), activité)) {
-                    temp = vue.saisirActivity("Inscription nécessaire? o/n");
-                    if (temp.equalsIgnoreCase("oui") || temp.equalsIgnoreCase("o")) {
-                        isReg = true;
-                    }else{
-                        if (!temp.equalsIgnoreCase("non") && !temp.equalsIgnoreCase("n")) {
-                            vue.unValid();
-                            check = false;
+                    do {
+                        temp = vue.saisirActivity("Inscription nécessaire? o/n");
+                        if (temp.equalsIgnoreCase("oui") || temp.equalsIgnoreCase("o")) {
+                            isReg = true;
+                            check=true;
                         }else{
-                            isReg = false;
-                        }
-
-                    }
-                    if(check) {
-                        choice = (vue.confirm("ajouter")).toLowerCase().charAt(0);
-                        if (choice == 'o') {
-                            type = model.addActivityType(activité, isReg);
-                            vue.successAdd(type);
-                        } else if (choice == 'n') {
-                            System.out.println("non ajouté");
-                            return null;
-                        } else {
-                            System.out.println("non valide");
-                        }
-                        if (!fromHoraire) {
-                            choice = (vue.saisirActivity("Voulez vous continuer? o/n")).toLowerCase().charAt(0);
-                            if (choice == 'n') {
-                                continued = true;
-                            } else if (choice != 'o') {
+                            if (temp.equalsIgnoreCase("non") || temp.equalsIgnoreCase("n")) {
+                                isReg = false;
+                                check=true;
+                            } else {
                                 vue.unValid();
+                                check = false;
                             }
-                        }else{
-                            continued = true;
-                        }
 
+                        }
+                    } while (!check);
+
+                    choice = (vue.confirm("ajouter")).toLowerCase().charAt(0);
+                    if (choice == 'o') {
+                        type = model.addActivityType(activité, isReg);
+                        vue.successAdd(type);
+                    } else if (choice == 'n') {
+                        System.out.println("non ajouté");
+                        return null;
+                    } else {
+                        System.out.println("non valide");
+                    }
+                    if (!fromHoraire) {
+                        choice = (vue.saisirActivity("Voulez vous continuer? o/n")).toLowerCase().charAt(0);
+                        if (choice == 'n') {
+                            continued = true;
+                        } else if (choice != 'o') {
+                            vue.unValid();
+                        }
+                    }else{
+                        continued = true;
                     }
                 }else{
-                    if (activité.isEmpty()) {
-                        vue.emptyInput();
-                    }else{
-                        vue.alreadyIN();
-                    }
-
+                    vue.alreadyIN();
                 }
 
             } catch (Exception e) {

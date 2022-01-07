@@ -67,6 +67,17 @@ public class Activity implements Serializable {
                 " | Type : "+type.getName()+
                 " | Inscription : "+(type.isRegistration() ? "obligatoire" : "facultative");
     }
+    public boolean equals2(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Activity activity = (Activity) o;
+
+        if (start != null ? !start.equals(activity.start) : activity.start != null) return false;
+        if (end != null ? !end.equals(activity.end) : activity.end != null) return false;
+        if (name != null ? !name.equals(activity.name) : activity.name != null) return false;
+        return type != null ? type.equals(activity.type) : activity.type == null;
+    }
 
     @Override
     public boolean equals(Object o) {

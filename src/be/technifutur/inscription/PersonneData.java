@@ -8,18 +8,18 @@ import java.util.List;
 
 public class PersonneData implements Serializable {
 
-    private List<Personne> subber = new ArrayList<>();
+    private final List<Personne> personne = new ArrayList<>();
 
     public Personne addSubber(Personne e) {
-        subber.add(e);
+        personne.add(e);
         return e;
     }
 
     public void showData() {
-        subber.forEach( x -> System.out.println(x.toString()));
+        personne.forEach(x -> System.out.println(x.toString()));
     }
 
     public List<Personne> getData() {
-        return subber;
+        return personne;
     }
 }

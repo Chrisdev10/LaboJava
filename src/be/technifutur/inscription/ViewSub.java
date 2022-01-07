@@ -26,6 +26,8 @@ public class ViewSub extends SubMaster {
     }
 
 
+
+
     public String saisirSubs(String str) {
 
         System.out.println(str);
@@ -46,7 +48,6 @@ public class ViewSub extends SubMaster {
     }
 
     public String choosePersonne(List<Personne> data) {
-        System.out.println(data.size());
         for (int i = 0; i < data.size(); i++) {
             System.out.printf("(%d) %s\n",i+1,data.get(i).toString());
         }

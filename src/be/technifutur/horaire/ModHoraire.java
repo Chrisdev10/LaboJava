@@ -68,7 +68,7 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         }
         model.ModActivityName(activity, str);
     }
-    private void startDate(Activity activity) {
+    private boolean startDate(Activity activity) {
         LocalDateTime date = ToolsBox.checkUserDate(null,true);
         if (date == null) {
             vue.dateAlert();
@@ -77,14 +77,16 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
             if (timechecker(date, true, activity)) {
 
                 System.out.println("erreur");
+
             } else {
                 model.ModActivityStart(activity, date);
+                return true;
             }
 
         }
-
+        return false;
     }
-    private void endDate(Activity activity) {
+    private boolean endDate(Activity activity) {
         LocalDateTime date = ToolsBox.checkUserDate(activity.getStart(),false);
         if (date == null) {
             vue.dateAlert();
@@ -93,9 +95,12 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
             if (timechecker(date, false, activity)) {
                 System.out.println("erreur");
             } else {
+
                 model.ModActivityStart(activity, date);
+                return true;
             }
         }
+        return false;
     }
     private void typeActivity(Activity activity) {
         boolean check = false;
@@ -129,10 +134,17 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
     }
 
     private void allChange(Activity activity) {
+        boolean keepContinue;
         nameChange(activity);
-        startDate(activity);
-        endDate(activity);
-        typeActivity(activity);
+        keepContinue = startDate(activity);
+        if (keepContinue) {
+            keepContinue = endDate(activity);
+            if (keepContinue) {
+                typeActivity(activity);
+            }
+
+        }
+
     }
 
     private boolean timechecker(LocalDateTime dateTime, boolean isBefore, Activity activity) {

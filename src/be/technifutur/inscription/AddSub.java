@@ -60,24 +60,32 @@ public class AddSub extends SubMaster implements Callable<Personne> {
         if(choice == getPersonne().getData().size()){
             name = getVue().saisirSubs("Entrez un nom");
             prenom = getVue().saisirSubs("Entrez un prénom");
+            Personne personne = new Personne(name, prenom);
             if (unicityChecker(name, prenom)) {
                 choix = vue.saisirSubs("La personne est déjà encodée. Désirez vous l'inscrire?").toLowerCase();
                 if (choix.equals("oui") || choix.charAt(0) == 'o') {
-                    if (unicitySubsChecker(name, prenom)) {
+                    if (unicitySubsChecker(personne,act)) {
                         vue.saisirSubs("La personne est déjà inscrite. Annulation en cours...");
                     }else{
-                        Personne sub = getSubs().addSubber(new Personne(name,prenom));
+                        Personne sub = getSubs().addSubber(new Personne(name,prenom),act);
                         getModel().AddPersonne(act, sub);
                     }
                 }
             }else{
-                Personne sub = getSubs().addSubber(new Personne(name,prenom));
+                Personne sub = getSubs().addSubber(new Personne(name,prenom),act);
                 getPersonne().addSubber(new Personne(name,prenom));
                 getModel().AddPersonne(act, sub);
             }
         }else{
-            getModel().AddPersonne(act, getPersonne().getData().get(choice));
+            Personne pers = getPersonne().getData().get(choice);
+            if (!unicitySubsChecker(pers,act)) {
+                getModel().AddPersonne(act, getPersonne().getData().get(choice));
+            }else{
+                System.out.println("nope déjà encodé");
+            }
+
         }
+        getSubs().showAll();
 
         return null;
     }
@@ -92,11 +100,8 @@ public class AddSub extends SubMaster implements Callable<Personne> {
                 .stream()
                 .anyMatch(x -> x.getNom().equals(name) && x.getPrenom().equals(prenom));
     }
-    private boolean unicitySubsChecker(String name, String prenom) {
-        return getSubs()
-                .getData()
-                .stream()
-                .anyMatch(x -> x.getNom().equals(name) && x.getPrenom().equals(prenom));
+    private boolean unicitySubsChecker(Personne personne, Activity activity) {
+        return getSubs().getData().get(personne).stream().anyMatch(x -> x.equals2(activity));
     }
     public SubData getSubs() {
         return subs;
