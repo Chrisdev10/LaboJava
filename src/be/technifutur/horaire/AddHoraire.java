@@ -6,13 +6,8 @@ import be.technifutur.activity.AddController;
 import be.technifutur.exceptions.UnvalidFieldException;
 import be.technifutur.toolbox.ToolsBox;
 
-import java.awt.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
 
 public class AddHoraire extends HoraireMaster implements Callable<Activity> {

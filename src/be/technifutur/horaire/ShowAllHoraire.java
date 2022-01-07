@@ -10,12 +10,7 @@ import java.util.concurrent.Callable;
 public class ShowAllHoraire extends HoraireMaster implements Callable<Activity> {
     @Override
     public Activity call() throws Exception {
-        Set<Activity> view = new TreeSet<>(new Comparator<Activity>() {
-            @Override
-            public int compare(Activity o1, Activity o2) {
-                return o1.getStart().compareTo(o2.getStart());
-            }
-        });
+        Set<Activity> view = new TreeSet<>(Comparator.comparing(Activity::getStart));
         view.addAll(model.getList());
         view.forEach( x -> System.out.println(x.toStringLinear()));
         return null;

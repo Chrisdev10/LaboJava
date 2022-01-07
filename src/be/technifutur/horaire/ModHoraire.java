@@ -6,7 +6,9 @@ import be.technifutur.activity.AddController;
 import be.technifutur.toolbox.ToolsBox;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 public class ModHoraire extends HoraireMaster implements Callable<Activity> {
     AddController adder;
@@ -72,7 +74,13 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
             vue.dateAlert();
             startDate(activity);
         } else {
-            model.ModActivityStart(activity, date);
+            if (timechecker(date, true, activity)) {
+
+                System.out.println("erreur");
+            } else {
+                model.ModActivityStart(activity, date);
+            }
+
         }
 
     }
@@ -82,7 +90,11 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
             vue.dateAlert();
             endDate(activity);
         } else {
-            model.ModActivityEnd(activity, date);
+            if (timechecker(date, false, activity)) {
+                System.out.println("erreur");
+            } else {
+                model.ModActivityStart(activity, date);
+            }
         }
     }
     private void typeActivity(Activity activity) {
@@ -121,6 +133,24 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         startDate(activity);
         endDate(activity);
         typeActivity(activity);
+    }
+
+    private boolean timechecker(LocalDateTime dateTime, boolean isBefore, Activity activity) {
+        List<Activity> activityList = model
+                .getList()
+                .stream()
+                .filter(x -> x.equals(activity))
+                .collect(Collectors.toList());
+
+        if (isBefore) {
+            return activityList
+                    .stream()
+                    .anyMatch(x -> x.getEnd().isAfter(dateTime));
+        }else{
+            return activityList
+                    .stream()
+                    .anyMatch(x -> x.getStart().isBefore(dateTime));
+        }
     }
 
     public void setAdder(AddController addActivity) {
