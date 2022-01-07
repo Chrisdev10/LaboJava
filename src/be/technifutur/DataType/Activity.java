@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Activity implements Serializable {
+public class Activity implements Serializable{
     LocalDateTime start;
     LocalDateTime end;
     String name;
@@ -96,4 +96,5 @@ public class Activity implements Serializable {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
+
 }

@@ -1,19 +1,21 @@
 package be.technifutur.factory;
 
+import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
+import be.technifutur.DataType.Personne;
 import be.technifutur.activity.*;
 import be.technifutur.dataStore.DataStore;
 import be.technifutur.dataStore.DataType;
 import be.technifutur.horaire.*;
 import be.technifutur.inscription.*;
-import be.technifutur.main.GestionMenuActivity;
-import be.technifutur.main.HoraireMenu;
 import be.technifutur.main.SubMain;
 import be.technifutur.mvc.MenuControler;
 import be.technifutur.mvc.MenuModel;
 import be.technifutur.mvc.MenuVue;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 
@@ -65,7 +67,6 @@ public class MenuFactory {
         return main;
     }
 
-
     //CREATE MAIN MENU
     private MenuControler mainCreator(MenuModel model) {
         MenuControler menu = new MenuControler();
@@ -92,8 +93,8 @@ public class MenuFactory {
     private MenuModel initMainMenu() {
         MenuModel model = new MenuModel("Menu Principal");
         model.addItem(createItem("exit", null));
-        model.addItem(createItem("gestionnaire activités", new GestionMenuActivity(getGestionMenu())));
-        model.addItem(createItem("gestionnaire horaire", new HoraireMenu(getHoraireMenu())));
+        model.addItem(createItem("gestionnaire activités", new SubMain(getGestionMenu())));
+        model.addItem(createItem("gestionnaire horaire", new SubMain(getHoraireMenu())));
         model.addItem(createItem("gestionnaire inscription",new SubMain(getSubMenu())));
         return model;
     }
@@ -123,6 +124,8 @@ public class MenuFactory {
         MenuModel model = new MenuModel("Menu Secondaire : Gestion des inscriptions");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une inscription", subsAdder()));
+        model.addItem(createItem("Modifier une inscription",subsModifier()));
+        model.addItem(createItem("Supprimer une inscription",subsRemover()));
         model.addItem(createItem("Afficher la liste d'inscription", subsShow()));
         return model;
 
@@ -205,6 +208,24 @@ public class MenuFactory {
         menu.setVue(new ViewSub());
         return menu;
     }
+
+    private ModifySub subsModifier() {
+        ModifySub menu = new ModifySub();
+        menu.setHoraireModel(horaireModel);
+        menu.setModel(horaireAndSubsModel);
+        menu.setVue(new ViewSub());
+        return menu;
+    }
+
+    private RemoveSub subsRemover() {
+        RemoveSub menu = new RemoveSub();
+        menu.setHoraireModel(horaireModel);
+        menu.setModel(horaireAndSubsModel);
+        ViewSub subview = new ViewSub();
+        subview.setModel(horaireAndSubsModel);
+        menu.setVue(subview);
+        return menu;
+    }
     private ShowAllSubs subsShow() {
         ShowAllSubs menu = new ShowAllSubs();
         menu.setModel(horaireAndSubsModel);
@@ -213,4 +234,6 @@ public class MenuFactory {
         menu.setVue(subview);
         return menu;
     }
+
+
 }

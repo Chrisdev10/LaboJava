@@ -25,6 +25,18 @@ public class ViewSub extends SubMaster {
 
     }
 
+    public <T> void showKeyMap(List<T> activityList) {
+        if (activityList == null) {
+            System.out.println("*** LISTE VIDE ***");
+        }else{
+            for (int i = 0; i < activityList.size(); i++) {
+                System.out.printf("( %d ) %s \n",i+1,activityList.get(i).toString());
+            }
+        }
+    }
+
+
+
 
 
 

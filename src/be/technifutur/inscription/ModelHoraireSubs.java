@@ -26,4 +26,5 @@ public class ModelHoraireSubs extends SubMaster implements Serializable {
     public Map<Activity, List<Personne>> getPersonne() {
         return personne;
     }
+
 }

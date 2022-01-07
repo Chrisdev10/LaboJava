@@ -30,4 +30,11 @@ public class MenuModel {
         return menu.size();
     }
 
+    public List<NodeMenu> getMenu() {
+        return menu;
+    }
+
+    public void resetList() {
+        menu.clear();
+    }
 }
