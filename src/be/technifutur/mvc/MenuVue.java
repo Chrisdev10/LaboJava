@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MenuVue {
     private final static Scanner scan = new Scanner(System.in);
-    public String saisirMenu(MenuModel model) {
+    public String saisirMenu(SubdData model) {
         /*
          * Will iterated through the entire tab and print name of item
          */

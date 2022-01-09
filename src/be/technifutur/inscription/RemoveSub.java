@@ -2,12 +2,15 @@ package be.technifutur.inscription;
 
 import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.Personne;
+import be.technifutur.mvc.SubdData;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 public class RemoveSub extends SubMaster implements Callable<Personne> {
 
+    SubData subs;
 
     @Override
     public Personne call() throws Exception {
@@ -17,27 +20,72 @@ public class RemoveSub extends SubMaster implements Callable<Personne> {
         int choice = 0;
         Activity act;
         vue.showKeyMap(liste);
-        choix = vue.saisirSubs("Entrez le numéro de l'activité.");
         while (!checker) {
-            try {
-                choice = Integer.parseInt(choix)-1;
-            } catch (NumberFormatException e) {
-                System.out.println("non conforme");
-            }
-            if (choice >= 0 && choice < getModel().getPersonne().size()) {
-                checker = true;
 
-            }else {
-                System.out.println("hors champ");
+            try {
+                choix = vue.saisirSubs("Entrez le numéro de l'activité.");
+
+                while (choix.isEmpty()) {
+                    choix = vue.saisirSubs("Entrez le numéro de l'activité.");
+                }
+                choice = Integer.parseInt(choix)-1;
+                if (choice >= 0 && choice < getModel().getPersonne().size()) {
+                    checker = true;
+                }else {
+                    vue.messageOutput("hors champ ..");
+                }
+            } catch (NumberFormatException e) {
+                vue.messageOutput("valeurs non valide");
             }
+
         }
         act = liste.get(choice);
 
         List<Personne> listeSub = getModel().getPersonne().get(act);
         vue.showKeyMap(listeSub);
+        checker = false;
+        choix="";
+        while (!checker) {
+            try {
+                choix = vue.saisirSubs("Entrez le numéro de la personne à supprimer.");
+
+                while (choix.isEmpty()) {
+                    choix = vue.saisirSubs("Entrez le numéro de la personne à supprimer.");
+                }
+                choice = Integer.parseInt(choix) - 1;
+                if (choice >= 0 && choice < listeSub.size()) {
+                    checker = true;
+
+                } else {
+                    vue.messageOutput("hors champ ..");
+                }
+            } catch (NumberFormatException e) {
+                vue.messageOutput("valeurs non valide");
+            }
+        }
+        System.out.println(listeSub.get(choice));
+        choix = vue.saisirSubs("ëtes vous sur de supprimer la personne suivante o/n ?");
+        if (choix.equalsIgnoreCase("oui") || choix.equalsIgnoreCase("o")) {
+            vue.messageOutput("*** Suppression validée");
+            listeSub.remove(choice);
+            List<Activity> tempListe = getSubs().getData().get(listeSub.get(choice));
+            tempListe.removeIf(x -> x.equals2(act));
+
+        }else{
+            vue.messageOutput("*** Suppression annulée");
+        }
+
 
 
 
         return null;
+    }
+
+    public SubData getSubs() {
+        return subs;
+    }
+
+    public void setSubs(SubData subs) {
+        this.subs = subs;
     }
 }

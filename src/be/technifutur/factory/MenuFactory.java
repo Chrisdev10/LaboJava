@@ -1,9 +1,7 @@
 package be.technifutur.factory;
 
-import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.Item;
 import be.technifutur.DataType.NodeMenu;
-import be.technifutur.DataType.Personne;
 import be.technifutur.activity.*;
 import be.technifutur.dataStore.DataStore;
 import be.technifutur.dataStore.DataType;
@@ -11,11 +9,9 @@ import be.technifutur.horaire.*;
 import be.technifutur.inscription.*;
 import be.technifutur.main.SubMain;
 import be.technifutur.mvc.MenuControler;
-import be.technifutur.mvc.MenuModel;
+import be.technifutur.mvc.SubdData;
 import be.technifutur.mvc.MenuVue;
 
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 
@@ -68,7 +64,7 @@ public class MenuFactory {
     }
 
     //CREATE MAIN MENU
-    private MenuControler mainCreator(MenuModel model) {
+    private MenuControler mainCreator(SubdData model) {
         MenuControler menu = new MenuControler();
         menu.setModel(model);
         menu.setVue(new MenuVue());
@@ -90,8 +86,8 @@ public class MenuFactory {
     }
 
     // Init all model item in the list
-    private MenuModel initMainMenu() {
-        MenuModel model = new MenuModel("Menu Principal");
+    private SubdData initMainMenu() {
+        SubdData model = new SubdData("Menu Principal");
         model.addItem(createItem("exit", null));
         model.addItem(createItem("gestionnaire activités", new SubMain(getGestionMenu())));
         model.addItem(createItem("gestionnaire horaire", new SubMain(getHoraireMenu())));
@@ -100,8 +96,8 @@ public class MenuFactory {
     }
 
     // Init all item in sub menu
-    private MenuModel initActivityMenu() {
-        MenuModel model = new MenuModel("Menu Secondaire : Gestion des activités");
+    private SubdData initActivityMenu() {
+        SubdData model = new SubdData("Menu Secondaire : Gestion des activités");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une activité", addActivity(false)));
         model.addItem(createItem("Modifier une activité", ModActivity()));
@@ -110,8 +106,8 @@ public class MenuFactory {
         return model;
     }
 
-    private MenuModel initScheduleMenu() {
-        MenuModel model = new MenuModel("Menu Secondaire : Gestion des horaires");
+    private SubdData initScheduleMenu() {
+        SubdData model = new SubdData("Menu Secondaire : Gestion des horaires");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une activité à l'horaire", addHoraire()));
         model.addItem(createItem("Modifier l'horaire d'une activité", ModHoraire()));
@@ -120,8 +116,8 @@ public class MenuFactory {
         return model;
     }
 
-    private MenuModel initSubMenu() {
-        MenuModel model = new MenuModel("Menu Secondaire : Gestion des inscriptions");
+    private SubdData initSubMenu() {
+        SubdData model = new SubdData("Menu Secondaire : Gestion des inscriptions");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une inscription", subsAdder()));
         model.addItem(createItem("Modifier une inscription",subsModifier()));
@@ -221,6 +217,7 @@ public class MenuFactory {
         RemoveSub menu = new RemoveSub();
         menu.setHoraireModel(horaireModel);
         menu.setModel(horaireAndSubsModel);
+        menu.setSubs(subs);
         ViewSub subview = new ViewSub();
         subview.setModel(horaireAndSubsModel);
         menu.setVue(subview);

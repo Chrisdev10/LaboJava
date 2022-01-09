@@ -5,7 +5,7 @@ import be.technifutur.DataType.NodeMenu;
 import java.util.concurrent.Callable;
 
 public class MenuControler implements NodeMenu {
-    private MenuModel model;
+    private SubdData model;
     private MenuVue vue;
 
     @Override
@@ -53,7 +53,7 @@ public class MenuControler implements NodeMenu {
      * Injection du model et de  la vue dans le controller
      */
 
-    public void setModel(MenuModel model) {
+    public void setModel(SubdData model) {
         this.model = model;
     }
 

@@ -12,7 +12,7 @@ import java.util.Map;
 public class SubData implements Serializable {
     private Map<Personne, List<Activity>> subber = new HashMap<>();
 
-    public Personne addSubber(Personne e, Activity act) {
+    public Personne addActToSubs(Personne e, Activity act) {
         List<Activity> activityList = subber.get(e);
         if (activityList == null) {
             activityList = new ArrayList<>();

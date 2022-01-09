@@ -32,10 +32,11 @@ public class AddSub extends SubMaster implements Callable<Personne> {
                 choice = Integer.parseInt(choix)-1;
                 if (choice >= 0 && choice < filterList.size()) {
                     isOk = true;
+                }else{
+                    vue.messageOutput("Valeurs entrée hors portée");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("faux");
-
+                vue.messageOutput("Valeurs non valide.");
             }
         }
 
@@ -53,26 +54,36 @@ public class AddSub extends SubMaster implements Callable<Personne> {
                     isOk = true;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("faux");
-
+                vue.messageOutput("Valeurs non valide.");
             }
         }
         if(choice == getPersonne().getData().size()){
-            name = getVue().saisirSubs("Entrez un nom");
-            prenom = getVue().saisirSubs("Entrez un prénom");
+            while (name.isEmpty()) {
+                name = getVue().saisirSubs("Entrez un nom");
+                if (name.isEmpty()) {
+                    vue.messageOutput("Champ vide");
+                }
+            }
+            while (prenom.isEmpty()) {
+                prenom = getVue().saisirSubs("Entrez un prénom");
+                if (prenom.isEmpty()) {
+                    vue.messageOutput("Champ vide");
+                }
+            }
+
             Personne personne = new Personne(name, prenom);
             if (unicityChecker(name, prenom)) {
                 choix = vue.saisirSubs("La personne est déjà encodée. Désirez vous l'inscrire?").toLowerCase();
                 if (choix.equals("oui") || choix.charAt(0) == 'o') {
                     if (unicitySubsChecker(personne,act)) {
-                        vue.saisirSubs("La personne est déjà inscrite. Annulation en cours...");
+                        vue.messageOutput("La personne est déjà inscrite. Annulation en cours...");
                     }else{
-                        Personne sub = getSubs().addSubber(new Personne(name,prenom),act);
+                        Personne sub = getSubs().addActToSubs(new Personne(name,prenom),act);
                         getModel().AddPersonne(act, sub);
                     }
                 }
             }else{
-                Personne sub = getSubs().addSubber(new Personne(name,prenom),act);
+                Personne sub = getSubs().addActToSubs(new Personne(name,prenom),act);
                 getPersonne().addSubber(new Personne(name,prenom));
                 getModel().AddPersonne(act, sub);
             }
@@ -81,12 +92,10 @@ public class AddSub extends SubMaster implements Callable<Personne> {
             if (!unicitySubsChecker(pers,act)) {
                 getModel().AddPersonne(act, getPersonne().getData().get(choice));
             }else{
-                System.out.println("nope déjà encodé");
+                vue.messageOutput("déjà encodé ...");
             }
 
         }
-        getSubs().showAll();
-
         return null;
     }
 

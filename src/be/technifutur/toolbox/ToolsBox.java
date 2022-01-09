@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class ToolsBox {
+public abstract class ToolsBox {
     private static final Scanner scan = new Scanner(System.in);
 
     // Vérifie si l'activité existe déjà

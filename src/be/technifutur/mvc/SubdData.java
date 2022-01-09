@@ -2,12 +2,12 @@ package be.technifutur.mvc;
 import be.technifutur.DataType.NodeMenu;
 import java.util.*;
 
-public class MenuModel {
+public class SubdData {
     private List<NodeMenu> menu = new ArrayList<>();
     private String name;
 
     // On définit le nom du model au moment de l'instanciation
-    public MenuModel(String name) {
+    public SubdData(String name) {
         this.name = name;
     }
 

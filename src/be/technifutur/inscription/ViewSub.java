@@ -35,16 +35,15 @@ public class ViewSub extends SubMaster {
         }
     }
 
-
-
-
-
-
     public String saisirSubs(String str) {
 
         System.out.println(str);
         System.out.print("saisir : ");
         return new Scanner(System.in).nextLine();
+    }
+
+    public void messageOutput(String str) {
+        System.out.println(str);
     }
 
     public void showList(List<Activity> liste) {
