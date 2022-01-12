@@ -1,50 +1,14 @@
 package be.technifutur.horaire;
 import be.technifutur.DataType.Activity;
-import be.technifutur.activity.ActivityModel;
+import be.technifutur.mvc.GeneriqueView;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class HoraireVue {
+public class HoraireVue extends GeneriqueView {
     private final Scanner scan = new Scanner(System.in);
-    public void showType(ActivityModel model){
-        if (model.getList().size() == 0) {
-            System.out.println("***liste vide***");
-        }else{
-            for (int i = 0; i < model.getList().size(); i++) {
-                System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
-            }
-        }
-    }
-    public void showType2(ActivityModel model){
-        System.out.println("*** LISTE TYPE ACTIVITE ***");
-        if (model.getList().size() == 0) {
-            System.out.println("***liste vide***");
-        }else{
-            model.getList().forEach( x -> System.out.println(x.toString()));
-        }
-    }
-    public void showType(HoraireModel model) {
-        System.out.println("*** HORAIRE ***");
-        if (model.getList().size() == 0) {
-            System.out.println("***liste vide***");
-        }else{
-            for (int i = 0; i < model.getList().size(); i++) {
-                System.out.printf("(%2d ) %s%n",i+1,model.getList().get(i).toString());
-            }
-        }
 
-    }
-
-    public String saisirActivity(String str) {
-        /*
-         * Will iterated through the entire tab and print name of item
-         */
-        System.out.println(str);
-        System.out.print("saisir : ");
-        return scan.nextLine();
-    }
     public String choiceUserAdd(){
         System.out.println("""
                 1. Ajouter un horaire à une activité existante
@@ -64,27 +28,6 @@ public class HoraireVue {
         return scan.nextLine();
     }
 
-    public void msgDelete(Activity e) {
-        System.out.println(e.toString());
-        System.out.println("### élément supprimé ###");
-    }
-
-    public void cancelDelete() {
-        System.out.println("### suppression annulée ###");
-    }
-
-    public void dateAlert() {
-        System.out.println("La date entrée n'est pas valide");
-    }
-
-    public void confirmAdd(Activity e) {
-        System.out.println("***Activité ajoutée***");
-        System.out.println(e.toString());
-    }
-    public void confirmMod(Activity e) {
-        System.out.println("***Activité modifiée***");
-        System.out.println(e.toString());
-    }
 
     public void dateConflict(Activity act) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy H:mm", Locale.FRENCH);

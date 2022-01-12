@@ -3,10 +3,10 @@ package be.technifutur.horaire;
 import be.technifutur.activity.ActivityModel;
 
 public class HoraireMaster {
-    String name;
-    HoraireModel model;
-    HoraireVue vue;
-    ActivityModel model2;
+    private String name;
+    private HoraireModel model;
+    private HoraireVue vue;
+    private ActivityModel model2;
 
     public String getName() {
         return name;

@@ -15,19 +15,19 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
 
     @Override
     public Activity call() throws Exception {
-        vue.showType(model);
+        getVue().showList(getModel().getList(),true,"Liste de Type d'activité");
         int choix = 0;
         String confirm = "";
         Activity activity = null;
         boolean check = false;
-        if (model.getList().size() == 0) {
+        if (getModel().getList().size() == 0) {
             return null;
         }
         while (!check) {
             try {
-                choix = Integer.parseInt(vue.saisirActivity("Tapez le numéro de l'activité à modifier")) - 1;
-                if (choix >= 0 && choix < model.getList().size()) {
-                    activity = model.getList().get(choix);
+                choix = Integer.parseInt(getVue().userInput("Tapez le numéro de l'activité à modifier")) - 1;
+                if (choix >= 0 && choix < getModel().getList().size()) {
+                    activity = getModel().getList().get(choix);
                     check = true;
                 }else{
                     System.out.println("non compris dans les champs");
@@ -40,7 +40,7 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         check = false;
         while (!check) {
             try {
-                choix = Integer.parseInt(vue.choiceUserMod()) - 1;
+                choix = Integer.parseInt(getVue().choiceUserMod()) - 1;
                 if (choix >= 0 && choix < 5) {
                     check = true;
                 }else{
@@ -64,14 +64,14 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
     private void nameChange(Activity activity) {
         String str = "";
         while(str.isEmpty()) {
-            str = vue.saisirActivity("Entrez le nouveau nom");
+            str = getVue().userInput("Entrez le nouveau nom");
         }
-        model.ModActivityName(activity, str);
+        getModel().ModActivityName(activity, str);
     }
     private boolean startDate(Activity activity) {
         LocalDateTime date = ToolsBox.checkUserDate(null,true);
         if (date == null) {
-            vue.dateAlert();
+            getVue().dateAlert();
             startDate(activity);
         } else {
             if (timechecker(date, true, activity)) {
@@ -79,7 +79,7 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
                 System.out.println("erreur");
 
             } else {
-                model.ModActivityStart(activity, date);
+                getModel().ModActivityStart(activity, date);
                 return true;
             }
 
@@ -89,14 +89,14 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
     private boolean endDate(Activity activity) {
         LocalDateTime date = ToolsBox.checkUserDate(activity.getStart(),false);
         if (date == null) {
-            vue.dateAlert();
+            getVue().dateAlert();
             endDate(activity);
         } else {
             if (timechecker(date, false, activity)) {
                 System.out.println("erreur");
             } else {
 
-                model.ModActivityStart(activity, date);
+                getModel().ModActivityStart(activity, date);
                 return true;
             }
         }
@@ -107,16 +107,16 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
         int choix = 0;
         ActivityType type;
         try {
-            choix = Integer.parseInt(vue.choiceUserAdd());
+            choix = Integer.parseInt(getVue().choiceUserAdd());
         } catch (NumberFormatException e) {
             System.out.println("non valide");
         }
         if (choix == 1) {
-            vue.showType(model2);
+            getVue().showList(getModel2().getList(),true,"Liste de Type d'activité");
             while (!check) {
                 try {
-                    choix = Integer.parseInt(vue.saisirActivity("Entrez le numéro de l'item")) - 1;
-                    if (choix >= 0 && choix < model2.getList().size()) {
+                    choix = Integer.parseInt(getVue().userInput("Entrez le numéro de l'item")) - 1;
+                    if (choix >= 0 && choix < getModel2().getList().size()) {
                         check = true;
                     }else{
                         System.out.println("non valide");
@@ -125,11 +125,11 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
                 } catch (NumberFormatException e) {
                     System.out.println("non numérique");
                 }
-                type = model2.getList().get(choix);
-                model.ModActivityType(activity,type);
+                type = getModel2().getList().get(choix);
+                getModel().ModActivityType(activity,type);
             }
         }else{
-            model.ModActivityType(activity, getAdder().call());
+            getModel().ModActivityType(activity, getAdder().call());
         }
     }
 
@@ -148,7 +148,7 @@ public class ModHoraire extends HoraireMaster implements Callable<Activity> {
     }
 
     private boolean timechecker(LocalDateTime dateTime, boolean isBefore, Activity activity) {
-        List<Activity> activityList = model
+        List<Activity> activityList = getModel()
                 .getList()
                 .stream()
                 .filter(x -> x.equals(activity))

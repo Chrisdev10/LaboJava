@@ -28,13 +28,13 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
 
             try {
 
-                activité = vue.saisirActivity("Nom de l'activité : (enter pour sortir)");
+                activité = vue.userInput("Nom de l'activité : (enter pour sortir)");
                 if (activité.isEmpty()) {
                     return null;
                 }
                 if (!ToolsBox.isChecked(getModel().getList(), activité)) {
                     do {
-                        temp = vue.saisirActivity("Inscription nécessaire? o/n");
+                        temp = vue.userInput("Inscription nécessaire? o/n");
                         if (temp.equalsIgnoreCase("oui") || temp.equalsIgnoreCase("o")) {
                             isReg = true;
                             check=true;
@@ -61,7 +61,7 @@ public class AddController extends GestionnaireActivite implements Callable<Acti
                         System.out.println("non valide");
                     }
                     if (!fromHoraire) {
-                        choice = (vue.saisirActivity("Voulez vous continuer? o/n")).toLowerCase().charAt(0);
+                        choice = (vue.userInput("Voulez vous continuer? o/n")).toLowerCase().charAt(0);
                         if (choice == 'n') {
                             continued = true;
                         } else if (choice != 'o') {

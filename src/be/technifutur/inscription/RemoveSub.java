@@ -2,8 +2,6 @@ package be.technifutur.inscription;
 
 import be.technifutur.DataType.Activity;
 import be.technifutur.DataType.Personne;
-import be.technifutur.mvc.SubdData;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -19,14 +17,14 @@ public class RemoveSub extends SubMaster implements Callable<Personne> {
         boolean checker=false;
         int choice = 0;
         Activity act;
-        vue.showKeyMap(liste);
+        vue.showList(liste,true,"Liste d'Horaire");
         while (!checker) {
 
             try {
-                choix = vue.saisirSubs("Entrez le numéro de l'activité.");
+                choix = vue.userInput("Entrez le numéro de l'activité.");
 
                 while (choix.isEmpty()) {
-                    choix = vue.saisirSubs("Entrez le numéro de l'activité.");
+                    choix = vue.userInput("Entrez le numéro de l'activité.");
                 }
                 choice = Integer.parseInt(choix)-1;
                 if (choice >= 0 && choice < getModel().getPersonne().size()) {
@@ -42,15 +40,15 @@ public class RemoveSub extends SubMaster implements Callable<Personne> {
         act = liste.get(choice);
 
         List<Personne> listeSub = getModel().getPersonne().get(act);
-        vue.showKeyMap(listeSub);
+        vue.showList(listeSub,true, "Liste de personne inscrite à une activité");
         checker = false;
         choix="";
         while (!checker) {
             try {
-                choix = vue.saisirSubs("Entrez le numéro de la personne à supprimer.");
+                choix = vue.userInput("Entrez le numéro de la personne à supprimer.");
 
                 while (choix.isEmpty()) {
-                    choix = vue.saisirSubs("Entrez le numéro de la personne à supprimer.");
+                    choix = vue.userInput("Entrez le numéro de la personne à supprimer.");
                 }
                 choice = Integer.parseInt(choix) - 1;
                 if (choice >= 0 && choice < listeSub.size()) {
@@ -63,13 +61,21 @@ public class RemoveSub extends SubMaster implements Callable<Personne> {
                 vue.messageOutput("valeurs non valide");
             }
         }
+        Personne personne = listeSub.get(choice);
         System.out.println(listeSub.get(choice));
-        choix = vue.saisirSubs("ëtes vous sur de supprimer la personne suivante o/n ?");
+        choix = vue.userInput("ëtes vous sur de supprimer la personne suivante o/n ?");
         if (choix.equalsIgnoreCase("oui") || choix.equalsIgnoreCase("o")) {
             vue.messageOutput("*** Suppression validée");
-            listeSub.remove(choice);
             List<Activity> tempListe = getSubs().getData().get(listeSub.get(choice));
+            Activity activity = tempListe.get(choice);
+            listeSub.remove(choice);
             tempListe.removeIf(x -> x.equals2(act));
+            if (tempListe.isEmpty()) {
+                getSubs().removeActToSubs(personne);
+            }
+            if (getModel().getPersonne().get(activity).isEmpty()) {
+                getModel().deletePersonne(activity);
+            }
 
         }else{
             vue.messageOutput("*** Suppression annulée");

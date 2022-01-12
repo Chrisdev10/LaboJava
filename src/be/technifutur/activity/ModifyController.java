@@ -1,8 +1,6 @@
 package be.technifutur.activity;
 
 import be.technifutur.DataType.ActivityType;
-
-import java.util.Optional;
 import java.util.concurrent.Callable;
 
 public class ModifyController extends GestionnaireActivite implements Callable<ActivityType> {
@@ -13,12 +11,12 @@ public class ModifyController extends GestionnaireActivite implements Callable<A
         String user = "";
         ActivityType pos;
         boolean isPresent = false;
-        vue.showList(model);
+        vue.showList(model.getList(),true,"Liste de Type d'activité");
         if (model.getList().size() == 0) {
             return null;
         }
         try {
-            user = vue.saisirActivity("Séléctionnez l'activité à modifier (enter pour sortir)");
+            user = vue.userInput("Séléctionnez l'activité à modifier (enter pour sortir)");
             if (user.isEmpty()) {
                 return null;
             }else{

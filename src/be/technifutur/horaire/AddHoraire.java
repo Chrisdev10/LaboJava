@@ -18,14 +18,14 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
         String name = "";
         ActivityType type = null;
         boolean check = false;
-        vue.showType2(model2);
+        getVue().showList(getModel2().getList(),true,"Liste de Type d'activité");
         while (!check) {
             try {
-                if (model2.getList().isEmpty()) {
+                if (getModel2().getList().isEmpty()) {
                     user=2;
                     check = true;
                 }else{
-                    user = Integer.parseInt(vue.choiceUserAdd());
+                    user = Integer.parseInt(getVue().choiceUserAdd());
                     if (user < 1 || user > 2) {
                         throw new UnvalidFieldException("choix non valide");
                     } else {
@@ -40,11 +40,11 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
         }
         check = false;
         if (user == 1) {
-            vue.showType(model2);
+            getVue().showList(getModel2().getList(),true,"Liste de Type d'activité");
             while (!check) {
                 try {
-                    user = Integer.parseInt(vue.saisirActivity("Entrez le numéro de l'item")) - 1;
-                    if (user >= 0 && user < model2.getList().size()) {
+                    user = Integer.parseInt(getVue().userInput("Entrez le numéro de l'item")) - 1;
+                    if (user >= 0 && user < getModel2().getList().size()) {
                         check = true;
                     }else{
                         System.out.println("non valide");
@@ -53,7 +53,7 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
                 } catch (NumberFormatException e) {
                     System.out.println("non numérique");
                 }
-                type = model2.getList().get(user);
+                type = getModel2().getList().get(user);
             }
         }else{
             type = getAdder().call();
@@ -64,7 +64,7 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
             this.call();
         }
         while (name.isEmpty()) {
-            name = vue.saisirActivity("entrez le nom de l'activité");
+            name = getVue().userInput("entrez le nom de l'activité");
 
         }
         LocalDateTime timeStart = ToolsBox.checkUserDate(null,true);
@@ -72,18 +72,18 @@ public class AddHoraire extends HoraireMaster implements Callable<Activity> {
             LocalDateTime timeEnd = ToolsBox.checkUserDate(timeStart,false);
             if (timeEnd != null) {
                 Activity act = new Activity(timeStart, timeEnd, name, type);
-                if (!ToolsBox.timeChecker(act,timeStart, timeEnd, model)) {
-                    model.addActivity(act);
-                    vue.confirmAdd(act);
+                if (!ToolsBox.timeChecker(act,timeStart, timeEnd, getModel())) {
+                    getModel().addActivity(act);
+                    getVue().successAdd(act);
                 }else{
-                    vue.dateConflict(act);
+                    getVue().dateConflict(act);
                 }
 
             }else{
-                vue.dateAlert();
+                getVue().dateAlert();
             }
         }else{
-            vue.dateAlert();
+            getVue().dateAlert();
         }
 
         return null;

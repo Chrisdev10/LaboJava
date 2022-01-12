@@ -16,12 +16,12 @@ public class DeleteController extends GestionnaireActivite implements Callable<A
         char choix = 'i';
         int choice  = 0;
         String user = "";
-        vue.showList(model);
+        vue.showList(model.getList(),true,"Liste de Type d'activité");
         if (model.getList().size() == 0) {
             return null;
         }
         try {
-            user = vue.saisirActivity("Séléctionnez l'activité à supprimer (enter pour sortir)");
+            user = vue.userInput("Séléctionnez l'activité à supprimer (enter pour sortir)");
             if (user.isEmpty()) {
                 return null;
             }else{

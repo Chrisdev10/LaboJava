@@ -2,7 +2,7 @@ package be.technifutur.activity;
 
 public class GestionnaireActivite {
     ActivityModel model;
-    ShowAct vue;
+    ActivityView vue;
     String name;
     public ActivityModel getModel() {
         return model;
@@ -12,11 +12,11 @@ public class GestionnaireActivite {
         this.model = model;
     }
 
-    public ShowAct getVue() {
+    public ActivityView getVue() {
         return vue;
     }
 
-    public void setVue(ShowAct vue) {
+    public void setVue(ActivityView vue) {
         this.vue = vue;
     }
 

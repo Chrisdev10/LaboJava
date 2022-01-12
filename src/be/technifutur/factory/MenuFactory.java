@@ -120,9 +120,9 @@ public class MenuFactory {
         SubdData model = new SubdData("Menu Secondaire : Gestion des inscriptions");
         model.addItem(createItem("retour", null));
         model.addItem(createItem("Ajouter une inscription", subsAdder()));
-        model.addItem(createItem("Modifier une inscription",subsModifier()));
         model.addItem(createItem("Supprimer une inscription",subsRemover()));
         model.addItem(createItem("Afficher la liste d'inscription", subsShow()));
+        model.addItem(createItem("Afficher la liste des personnes et leurs inscriptions",showPersonData()));
         return model;
 
     }
@@ -140,7 +140,7 @@ public class MenuFactory {
     private AddController addActivity(boolean isHoraire) {
         AddController menu = new AddController(isHoraire);
         menu.setModel(typeActivityModel);
-        menu.setVue(new ShowAct());
+        menu.setVue(new ActivityView());
         return menu;
     }
 
@@ -148,20 +148,20 @@ public class MenuFactory {
         DeleteController menu = new DeleteController();
         menu.setModel(typeActivityModel);
         menu.setModel2(horaireModel);
-        menu.setVue(new ShowAct());
+        menu.setVue(new ActivityView());
         return menu;
     }
 
     private ModifyController ModActivity() {
         ModifyController menu = new ModifyController();
         menu.setModel(typeActivityModel);
-        menu.setVue(new ShowAct());
+        menu.setVue(new ActivityView());
         return menu;
     }
     private ShowAllAct showAll() {
         ShowAllAct menu = new ShowAllAct();
         menu.setModel(typeActivityModel);
-        menu.setVue(new ShowAct());
+        menu.setVue(new ActivityView());
         return menu;
     }
 
@@ -205,21 +205,12 @@ public class MenuFactory {
         return menu;
     }
 
-    private ModifySub subsModifier() {
-        ModifySub menu = new ModifySub();
-        menu.setHoraireModel(horaireModel);
-        menu.setModel(horaireAndSubsModel);
-        menu.setVue(new ViewSub());
-        return menu;
-    }
-
     private RemoveSub subsRemover() {
         RemoveSub menu = new RemoveSub();
         menu.setHoraireModel(horaireModel);
         menu.setModel(horaireAndSubsModel);
         menu.setSubs(subs);
         ViewSub subview = new ViewSub();
-        subview.setModel(horaireAndSubsModel);
         menu.setVue(subview);
         return menu;
     }
@@ -227,8 +218,14 @@ public class MenuFactory {
         ShowAllSubs menu = new ShowAllSubs();
         menu.setModel(horaireAndSubsModel);
         ViewSub subview = new ViewSub();
-        subview.setModel(horaireAndSubsModel);
         menu.setVue(subview);
+        return menu;
+    }
+
+    private ShowPersonData showPersonData() {
+        ShowPersonData menu = new ShowPersonData();
+        menu.setModelSubs(subs);
+        menu.setViewSub(new ViewSub());
         return menu;
     }
 

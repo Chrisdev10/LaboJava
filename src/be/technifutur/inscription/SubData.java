@@ -25,25 +25,9 @@ public class SubData implements Serializable {
         return e;
     }
 
-    public void showData(Personne e) {
-        System.out.println(subber.get(e));
+    public void removeActToSubs(Personne personne) {
+        subber.remove(personne);
     }
-
-    public void showAll() {
-        if (subber.isEmpty()) {
-            System.out.println("*** LISTE VIDE ***");
-        }else{
-            for (Map.Entry<Personne, List<Activity>> entry : subber.entrySet()) {
-                System.out.println(entry.getKey().toString());
-                System.out.println(" Liste d'inscription =>");
-                for (int i = 0; i < entry.getValue().size(); i++) {
-                    System.out.printf("[%d] %s \n",i+1,entry.getValue().get(i).toStringLinear());
-                }
-            }
-        }
-
-    }
-
     public Map<Personne, List<Activity>> getData() {
         return subber;
     }

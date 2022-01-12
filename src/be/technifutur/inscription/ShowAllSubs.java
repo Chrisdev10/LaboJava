@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 public class ShowAllSubs extends SubMaster implements Callable<Personne> {
     @Override
     public Personne call() throws Exception {
-        getVue().ShowMap();
+        getVue().showMap(getModel().getPersonne());
         return null;
     }
 }

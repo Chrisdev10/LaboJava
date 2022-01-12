@@ -20,13 +20,17 @@ public class AddSub extends SubMaster implements Callable<Personne> {
         int choice = 0;
         boolean isOk = false;
         List<Activity> filterList = listFilter(getHoraireModel());
-        getVue().showList(filterList);
+        if (filterList.isEmpty()) {
+            vue.messageOutput("*** Liste vide ***");
+            return null;
+        }
+        getVue().showList(filterList,true,"Liste d'Horaire");
 
         while(!isOk) {
-            choix = getVue().saisirSubs("Selectionnez un horaire");
+            choix = getVue().userInput("Selectionnez un horaire");
             while (choix.isEmpty()) {
-                getVue().showList(filterList);
-                choix = getVue().saisirSubs("Selectionnez un horaire");
+                getVue().showList(filterList,true,"Liste d'Horaire");
+                choix = getVue().userInput("Selectionnez un horaire");
             }
             try {
                 choice = Integer.parseInt(choix)-1;
@@ -59,13 +63,13 @@ public class AddSub extends SubMaster implements Callable<Personne> {
         }
         if(choice == getPersonne().getData().size()){
             while (name.isEmpty()) {
-                name = getVue().saisirSubs("Entrez un nom");
+                name = getVue().userInput("Entrez un nom");
                 if (name.isEmpty()) {
                     vue.messageOutput("Champ vide");
                 }
             }
             while (prenom.isEmpty()) {
-                prenom = getVue().saisirSubs("Entrez un prénom");
+                prenom = getVue().userInput("Entrez un prénom");
                 if (prenom.isEmpty()) {
                     vue.messageOutput("Champ vide");
                 }
@@ -73,7 +77,7 @@ public class AddSub extends SubMaster implements Callable<Personne> {
 
             Personne personne = new Personne(name, prenom);
             if (unicityChecker(name, prenom)) {
-                choix = vue.saisirSubs("La personne est déjà encodée. Désirez vous l'inscrire?").toLowerCase();
+                choix = vue.userInput("La personne est déjà encodée. Désirez vous l'inscrire?").toLowerCase();
                 if (choix.equals("oui") || choix.charAt(0) == 'o') {
                     if (unicitySubsChecker(personne,act)) {
                         vue.messageOutput("La personne est déjà inscrite. Annulation en cours...");

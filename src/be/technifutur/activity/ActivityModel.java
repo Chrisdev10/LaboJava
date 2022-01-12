@@ -34,10 +34,10 @@ public class ActivityModel implements Serializable {
     // 3) la vue afin d'afficher les éléments
     /////////////////////////////////////////
 
-    public void modifyActivity(int choix, ActivityType pos, ShowAct vue) {
+    public void modifyActivity(int choix, ActivityType pos, ActivityView vue) {
 
         if (choix == 1) {
-            final String str = vue.saisirActivity("entrez la nouvelle activité");
+            final String str = vue.userInput("entrez la nouvelle activité");
             if (list.stream().noneMatch(x -> x.getName().equals(str))) {
                 pos.setName(str);
                 vue.successMod(pos);
@@ -51,7 +51,7 @@ public class ActivityModel implements Serializable {
                 vue.successMod(pos);
             }else{
                 if (choix == 3) {
-                    final String str = vue.saisirActivity("entrez la nouvelle activité");
+                    final String str = vue.userInput("entrez la nouvelle activité");
                     if (list.stream().noneMatch(x -> x.getName().equals(str))) {
                         pos.setName(str);
                         pos.setRegistration(!pos.isRegistration());

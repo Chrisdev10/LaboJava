@@ -23,6 +23,10 @@ public class ModelHoraireSubs extends SubMaster implements Serializable {
         }
     }
 
+    public void deletePersonne(Activity e) {
+        personne.remove(e);
+    }
+
     public Map<Activity, List<Personne>> getPersonne() {
         return personne;
     }
